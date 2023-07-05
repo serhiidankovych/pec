@@ -13,10 +13,14 @@ Hey,  PEC is an open-source project aimed at providing a free and interactive pl
    
 ## Getting Started:
 
-Clone the repository: git clone (https://github.com/serhiidankovych/pec.git)
-Install the required dependencies: npm install
-Run the application locally: npm start
-Access the application in your browser at http://localhost:3000
+ - Clone the repository: git clone (https://github.com/serhiidankovych/pec.git)
+ - Install the required dependencies: npm install
+ - Run the application locally: npm start
+ - Access the application in your browser at http://localhost:3000
+
+Design in Figma: https://www.figma.com/file/CvKCYIZ896LKahgiNSPPrn/PEC---OPEN-SOURCE?type=design&node-id=0%3A1&mode=design&t=KC1FudKIVCEhos6c-1
+
+Kanban Tasks in Trello: https://trello.com/b/JQNBmCL2/pec
 
 ## Contributing:
 
