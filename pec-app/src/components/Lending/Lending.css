@@ -1,0 +1,78 @@
+.lending{
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.lending-container{
+ 
+
+        display: flex;
+        width: 100%;
+        height: 90vh;
+        gap: 16px;
+   
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+    gap: 16px;
+    width: 100%;
+  }
+  
+  .lending-large-box {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    border-radius: 25px;
+    background: linear-gradient(133deg, #C0D1F2 0%, #85A7EA 100%);
+    border-radius: 25px;
+  }
+  
+  .lending-small-box {
+    grid-column-start: 1;
+    grid-row-start: 5;
+    grid-row-end: 8;
+    background-color: #FBEC4F;
+    border-radius: 25px;
+  }
+  
+  
+  .lending-main-title{
+    color: #000;
+font-size: 80px;
+font-family: "Red Rose";
+font-style: normal;
+font-weight: 700;
+line-height: normal; 
+
+  }
+  .lending-extra-title{
+    color: #000;
+font-size: 45px;
+font-family: "Red Rose";
+font-style: normal;
+font-weight: 400;
+line-height: normal; 
+margin-bottom: 16px;
+  }
+  .lending-titles{
+    display: flex;
+    flex-direction: column;
+    margin-left: 63px;
+   
+    width: 60%;
+  }
+  .lending-titles-and-image{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+  .lending-image{
+    margin-right: 160px;
+
+  }

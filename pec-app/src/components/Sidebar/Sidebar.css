@@ -1,0 +1,9 @@
+.sidebar {
+    
+    height: 95%;
+   
+    transition: all .5s ease;
+    width: 65px;
+    border-radius: 25px;
+    background: #C0D1F2;
+  }
