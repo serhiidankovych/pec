@@ -1,0 +1,13 @@
+.extra-button {
+  border-radius: 25px;
+  background: #000;
+  width: 187px;
+  height: 54px;
+  flex-shrink: 0;
+  font-family: Red Rose;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: white;
+  font-size: 20px;
+}

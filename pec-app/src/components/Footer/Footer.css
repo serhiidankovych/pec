@@ -1,0 +1,14 @@
+.footer {
+  /* grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 8;
+  grid-row-end: 10;
+  border-radius: 25px;
+  background: linear-gradient(133deg, #c0d1f2 0%, #85a7ea 100%);
+  border-radius: 25px; */
+  height: 400px;
+  width: 100%;
+
+  background-color: blueviolet;
+  border-radius: 25px;
+}

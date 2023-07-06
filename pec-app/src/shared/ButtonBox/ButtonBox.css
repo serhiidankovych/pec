@@ -1,11 +1,11 @@
-.button-box{
-    width: 37px;
-    height: 37px;
-flex-shrink: 0; 
-border-radius: 8px;
-border: 3px solid #000;
-margin-left: 17px;
-display: flex;
-    align-items: center;
-    justify-content: center;
+.button-box {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 3px solid #000;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

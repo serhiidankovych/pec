@@ -1,0 +1,44 @@
+.lending-small-box {
+  /* grid-row-start: 5;
+  grid-row-end: 8; */
+  border-radius: 25px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: space-around;
+  align-items: stretch;
+}
+.small-box-container {
+  display: flex;
+  flex-direction: column;
+}
+.small-box-title-and-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.small-box-title {
+  color: #000;
+  font-family: "Red Rose";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.small-box-image {
+  width: auto;
+  height: 238px;
+}
+
+.small-box-extra-image {
+  width: auto;
+  height: 101px;
+  margin-bottom: 25px;
+}
+.small-box-title-and-extra-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
