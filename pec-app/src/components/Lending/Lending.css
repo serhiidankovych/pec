@@ -15,13 +15,26 @@
   align-content: center;
 }
 .small-box-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
+  display: flex;
   gap: 16px;
 }
 .large-and-small-box-wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .small-box-wrapper {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lending-titles {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+  }
 }

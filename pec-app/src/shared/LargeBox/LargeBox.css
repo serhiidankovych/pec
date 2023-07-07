@@ -6,11 +6,14 @@
   border-radius: 25px; */
   background: linear-gradient(133deg, #c0d1f2 0%, #85a7ea 100%);
   border-radius: 25px;
+  height: 327px;
+  display: flex;
+  align-items: center;
 }
 
 .lending-main-title {
   color: #000;
-  font-size: 80px;
+  font-size: 60px;
   font-family: "Red Rose";
   font-style: normal;
   font-weight: 700;
@@ -18,7 +21,7 @@
 }
 .lending-extra-title {
   color: #000;
-  font-size: 45px;
+  font-size: 25px;
   font-family: "Red Rose";
   font-style: normal;
   font-weight: 400;
@@ -29,8 +32,6 @@
   display: flex;
   flex-direction: column;
   margin-left: 63px;
-
-  width: 60%;
 }
 .lending-titles-and-image {
   display: flex;
@@ -40,6 +41,7 @@
 }
 .lending-image {
   margin-right: 160px;
+  width: 263px;
 }
 .circle-decoration-yellow {
   background: #fbec4f30;
@@ -66,4 +68,26 @@
   margin-top: 127px;
   width: 230px;
   transform: rotate(108deg);
+}
+
+@media (max-width: 548px) {
+  .lending-image {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .lending-image {
+    margin-right: 11px;
+    width: 180px;
+  }
+}
+@media (max-width: 1150px) {
+  .lending-main-title {
+    font-size: 40px;
+  }
+}
+@media (max-width: 335px) {
+  .lending-main-title {
+    font-size: 30px;
+  }
 }

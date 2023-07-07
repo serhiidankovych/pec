@@ -1,14 +1,15 @@
-.main-button{
-    border-radius: 15px;
-    border: 3px solid #000;
-    background: #FBEC4F;
-    box-shadow: 10px 10px 0px 0px #000; 
-    width: 300px;
-    height: 80px;
-    flex-shrink: 0; 
-    color: #000;
-    font-size: 40px;
-    font-family: Red Rose;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal; }
+.main-button {
+  border-radius: 15px;
+  border: 3px solid #000;
+  background: #fbec4f;
+  box-shadow: 10px 10px 0px 0px #000;
+  width: 211px;
+  height: 52px;
+  flex-shrink: 0;
+  color: #000;
+  font-size: 25px;
+  font-family: "Red Rose";
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
