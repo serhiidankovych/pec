@@ -1,8 +1,15 @@
 import React from "react";
 import MainButton from "../MainButton/MainButton";
 import "./LargeBox.css";
+import { useNavigate } from "react-router-dom";
 
 function LargeBox({ image, imageDecoration }) {
+  const navigate = useNavigate();
+
+  const handleDashboardRedirect = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <>
       <div className="lending-large-box">
@@ -12,10 +19,7 @@ function LargeBox({ image, imageDecoration }) {
               Fun supported area for learning English
             </div>
             <div className="lending-extra-title">with co-learn experience</div>
-            <MainButton
-              title={"Try it out"}
-              // func={}
-            />
+            <MainButton title={"Try it out"} func={handleDashboardRedirect} />
           </div>
           {/* <img className="image-decoration" src={imageDecoration} /> */}
           {/* <div className="circle-decoration-pink"></div>

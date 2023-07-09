@@ -19,7 +19,6 @@ function Lending() {
     <>
       <div className="lending">
         <Header />
-
         <div className="lending-container">
           <Sidebar />
           <div className="large-and-small-box-wrapper">

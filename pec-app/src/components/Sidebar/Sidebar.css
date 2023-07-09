@@ -1,13 +1,13 @@
 .sidebar {
   /* height: calc(100% - 144px); */
   transition: all 0.5s ease;
-  width: 93px;
+
   border-radius: 25px;
   background: #c0d1f2;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-
+  padding: 8px;
   /* position: fixed; */
   /* margin-top: 93px; */
 }
