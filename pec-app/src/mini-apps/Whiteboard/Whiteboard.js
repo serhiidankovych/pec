@@ -2,11 +2,10 @@ import React, { useRef, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
 import RoomId from "../../shared/RoomId/RoomId";
+import UserContext from "../../UserContext";
 
 const Whiteboard = ({ socket }) => {
-  const unique_id = uuid();
-
-  const [roomCode, setRoomCode] = React.useState(unique_id);
+  const roomCode = React.useContext(UserContext);
 
   useEffect(() => {
     console.log(roomCode);
@@ -93,7 +92,7 @@ const Whiteboard = ({ socket }) => {
           value={color}
           onChange={handleColorChange}
         />
-        <RoomId setRoomCode={setRoomCode} roomCode={roomCode} />
+        <RoomId roomCode={roomCode} />
       </div>
 
       <canvas

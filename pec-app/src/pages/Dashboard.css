@@ -33,3 +33,8 @@
   width: auto;
   height: 51px;
 }
+.mini-app-and-back-button {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}

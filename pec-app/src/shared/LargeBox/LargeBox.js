@@ -8,6 +8,7 @@ function LargeBox({ image, imageDecoration }) {
 
   const handleDashboardRedirect = () => {
     navigate("/dashboard");
+    console.log("dashboard redirected");
   };
 
   return (

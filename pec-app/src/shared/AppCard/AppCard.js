@@ -4,7 +4,7 @@ import ExtraButton from "../ExtraButton/ExtraButton";
 
 function AppCard({ appImage, title, defenition, func }) {
   return (
-    <div className="app-card" onClick={() => func}>
+    <div className="app-card" onClick={func}>
       <img className="app-image" src={appImage} />
       <div className="title-and-defenition">
         <div className="title">{title}</div>
