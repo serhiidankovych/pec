@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
 import RoomId from "../../shared/RoomId/RoomId";
-import UserContext from "../../UserContext";
+import UserContext from "../../context/UserContext";
 
 const Whiteboard = ({ socket }) => {
   const roomCode = React.useContext(UserContext);

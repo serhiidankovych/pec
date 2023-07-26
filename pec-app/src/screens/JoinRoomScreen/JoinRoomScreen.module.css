@@ -1,0 +1,185 @@
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  background-color: rgb(0 0 0 / 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+@keyframes rotate {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.banner {
+  width: 40%;
+  height: 100vh;
+  padding: 2rem;
+  /* background-color: var(--secondary-bg-color); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.banner .logo {
+  font-family: "Fredoka One", cursive;
+  color: var(--fore-color);
+  text-shadow: 1px 1px #fff;
+  font-size: 54px;
+}
+
+.banner .slogan {
+  color: rgb(207, 207, 207);
+  margin-top: 1.5rem;
+  padding: 0 3rem;
+  text-align: center;
+}
+
+.contentPanelConatiner {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contentPanel {
+  width: 400px;
+  /* height: 400px; */
+  background-color: var(--secondary-bg-color);
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  color: #fff;
+}
+
+.title {
+  color: var(--fore-color);
+  font-size: 24px;
+}
+
+.inputsContainer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.textField {
+  width: 250px;
+  margin: 0.5rem 0;
+  border: 0;
+  outline: 0;
+  background-color: var(--secondary-bg-color);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--fore-color);
+}
+
+.textField:active,
+.textField:focus {
+  border-color: var(--fore-bright-color);
+}
+
+.audioOnlyCheck {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.audioOnlyCheck label {
+  font-size: 12px;
+  margin-left: 8px;
+  color: rgb(189, 189, 189);
+}
+
+.audioOnlyCheck input {
+  height: 14px;
+  width: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  border: 1.5px solid var(--fore-color);
+  border-radius: 4px;
+  outline: none;
+  transition-duration: 0.3s;
+  background-color: var(--secondary-bg-color);
+  cursor: pointer;
+}
+
+.audioOnlyCheck input:checked {
+  background-color: var(--fore-color);
+}
+
+.audioOnlyCheck input:checked::after {
+  content: "\2713";
+  display: block;
+  text-align: center;
+  color: #fff;
+  position: absolute;
+  left: 0.15rem;
+  top: 0;
+}
+
+.errMsgContainer {
+  margin-top: 16px;
+}
+
+.errMsgContainer .errMsg {
+  color: var(--warning-color);
+  font-size: 13px;
+}
+
+.btnsContainer {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.joinBtn {
+  background-color: var(--fore-color);
+  border: none;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  width: 75px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.joinBtn:hover {
+  background-color: #05bba0;
+}
+
+.cancelBtn {
+  background-color: #fff;
+  border: none;
+  color: black;
+  font-size: 12px;
+  width: 75px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 16px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background-color: #e5e5e5;
+}

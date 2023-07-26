@@ -1,0 +1,6 @@
+.mainContainer {
+  width: 100%;
+  height: calc(100% - 50px);
+  border-end-end-radius: 12px;
+  border-end-start-radius: 12px;
+}

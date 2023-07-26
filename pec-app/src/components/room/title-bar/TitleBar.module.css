@@ -1,0 +1,28 @@
+.titleBar {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 24px;
+  font-family: "Fredoka One", cursive;
+}
+
+.sidePanelToggle {
+  position: absolute;
+  transform: scale(1.1);
+  top: -0.75rem;
+  right: -1rem;
+  background-color: var(--secondary-bg-color);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.1rem;
+  transition: all 0.1s ease-in;
+}
+
+.sidePanelToggle:hover {
+  transform: scale(1.2);
+}

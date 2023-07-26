@@ -1,7 +1,8 @@
 import React from "react";
+import { socket } from "../socketConfig.js";
 import "./Dashboard.css";
-import socketIO from "socket.io-client";
-import UserContext from "../UserContext";
+
+import UserContext from "../context/UserContext.js";
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import AppCard from "../shared/AppCard/AppCard";
@@ -10,12 +11,32 @@ import Footer from "../components/Footer/Footer";
 import dashboardImage from "../pictures/dashboard-splash.png";
 import Whiteboard from "../mini-apps/Whiteboard/Whiteboard";
 import BackButton from "../shared/BackButton/BackButton";
-import VideoCall from "../VideoCall/VideCall";
+import IntroScreen from "../screens/IntroScreen/IntroScreen";
+import JoinRoomScreen from "../screens/JoinRoomScreen/JoinRoomScreen";
+import RoomScreen from "../screens/RoomScreen/RoomScreen";
 
 function Dashboard() {
   const [isMiniApps, setIsMiniApps] = React.useState(false);
   const [currentComponent, setCurrentComponent] = React.useState("");
-  const socket = socketIO.connect("http://localhost:5000");
+
+  const [isIntroScreen, setIsIntroScreen] = React.useState(false);
+  const [isJoinRoomScreen, setIsJoinRoomScreen] = React.useState(false);
+  const [isRoomScreen, setIsRoomScreen] = React.useState(false);
+
+  const handlerisIntroScreen = () => {
+    setIsIntroScreen((element) => !element);
+    console.log("element");
+  };
+
+  const handlerisJoinRoomScreen = () => {
+    setIsJoinRoomScreen((element) => !element);
+    console.log("element");
+  };
+  const handlerisRoomScreen = () => {
+    setIsRoomScreen((element) => !element);
+    console.log("element");
+  };
+
   const componentMappings = {
     Whiteboard: Whiteboard,
   };
@@ -43,14 +64,27 @@ function Dashboard() {
   return (
     <>
       <div className="dashboard ">
+        {isIntroScreen && (
+          <IntroScreen
+            handlerisJoinRoomScreen={handlerisJoinRoomScreen}
+            handlerisIntroScreen={handlerisIntroScreen}
+          />
+        )}
+        {isJoinRoomScreen && (
+          <JoinRoomScreen
+            handlerisJoinRoomScreen={handlerisJoinRoomScreen}
+            handlerisRoomScreen={handlerisRoomScreen}
+          />
+        )}
+        {isRoomScreen && <RoomScreen />}
         <Header />
         <div className="dashboard-container">
-          <Sidebar />
+          <Sidebar handlerisIntroScreen={handlerisIntroScreen} />
           {isMiniApps ? (
             <div className="mini-app-and-back-button">
               <BackButton func={handleReturnToDashboard} />
               {/* <ComponentToRender socket={socket} /> */}
-              <VideoCall socket={socket} />
+              {/* <VideoRoom socket={socket} /> */}
             </div>
           ) : (
             <div className="app-wrapper">
@@ -67,8 +101,13 @@ function Dashboard() {
               {/* Other AppCard components */}
             </div>
           )}
+
+          {/* <button onClick={handlerisIntroScreen}>handlerisIntroScreen</button>
+          <button onClick={handlerisJoinRoomScreen}>
+            handlerisJoinRoomScreen
+          </button>
+          <button onClick={handlerisRoomScreen}>isRoomScreen</button> */}
         </div>
-        <Footer />
       </div>
     </>
   );

@@ -1,0 +1,27 @@
+.sidePanelContainer {
+  height: 100%;
+  border-radius: 12px;
+  background-color: var(--secondary-bg-color);
+}
+
+.tabsBar {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.tab {
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.tab p {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.activeTab p {
+  color: var(--fore-color);
+}

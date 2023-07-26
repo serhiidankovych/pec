@@ -3,17 +3,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Lending from "./components/Lending/Lending";
 import Dashboard from "./pages/Dashboard";
-import UserContext from "./UserContext";
+import UserContext from "./context/UserContext";
+import { connectWithSocketIOServer } from "./utils/wss";
 import { v4 as uuid } from "uuid";
 
 function App() {
-  const unique_id = uuid();
-
-  const [roomCode, setRoomCode] = React.useState("18498484849984616815151");
+  const roomId = uuid();
+  React.useEffect(() => {
+    connectWithSocketIOServer();
+  }, []);
 
   return (
     <>
-      <UserContext.Provider value={roomCode}>
+      <UserContext.Provider value={roomId}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Lending />} />

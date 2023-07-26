@@ -1,0 +1,46 @@
+.mainContainer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+}
+
+.btnsContainer {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background-color: var(--secondary-bg-color);
+  transition: transform 0.2s ease-in;
+  margin-right: 1.5rem;
+}
+
+.btnContainer:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.btnImg {
+  width: 18px;
+}
+
+.leaveBtnContainer {
+  background-color: var(--warning-color);
+}
+
+.leaveBtnContainer img {
+  width: 20px;
+}
