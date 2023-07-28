@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../Header/Header";
-import MainButton from "../../shared/MainButton/MainButton";
-import Sidebar from "../Sidebar/Sidebar";
+
 import SmallBox from "../../shared/SmallBox/SmallBox";
 import LargeBox from "../../shared/LargeBox/LargeBox";
 import Footer from "../Footer/Footer";
@@ -14,13 +13,13 @@ import catLending from "../../pictures/lending-cat.png";
 import hashLending from "../../pictures/lending-hash.png";
 import greatLending from "../../pictures/lending-great.png";
 import doodleLending from "../../pictures/lending-doodle.png";
+
 function Lending() {
   return (
     <>
       <div className="lending">
         <Header />
         <div className="lending-container">
-          <Sidebar />
           <div className="large-and-small-box-wrapper">
             <LargeBox image={lendingStuding} imageDecoration={doodleLending} />
             <div className="small-box-wrapper">

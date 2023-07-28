@@ -8,9 +8,9 @@ function Header() {
   return (
     <div className="header">
       <div className="logo">
-        {/* <ButtonBox title="pec" color="#4F75FB" funct={sayHello} /> */}
-        {/* <div>PEC</div> */}
-        <RoomId roomId={roomId} />
+        <ButtonBox title="pec" color="#4F75FB" />
+        <div>PEC</div>
+        {/* <RoomId roomId={roomId} /> */}
       </div>
     </div>
   );

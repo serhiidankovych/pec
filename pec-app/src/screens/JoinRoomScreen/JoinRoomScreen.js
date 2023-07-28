@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import styles from "./JoinRoomScreen.module.css";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import "./JoinRoomScreen.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setIsRoomHost,
   setConnectOnlyWithAudio,
   setIdentity,
   setRoomId,
 } from "../../redux/actions";
 import { getRoomExists } from "../../api";
-import { motion } from "framer-motion";
-
+import joinScreenVideo from "../../pictures/join-screen-video.png";
+import ExtraButton from "../../shared/ExtraButton/ExtraButton";
 const JoinRoomScreen = ({ handlerisJoinRoomScreen, handlerisRoomScreen }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isRoomHost, connectOnlyWithAudio } = useSelector((st) => ({
-    isRoomHost: st.isRoomHost,
-    connectOnlyWithAudio: st.connectOnlyWithAudio,
-  }));
+
+  const isRoomHost = useSelector((state) => state.isRoomHost);
+  const connectOnlyWithAudio = useSelector(
+    (state) => state.connectOnlyWithAudio
+  );
 
   const [name, setName] = useState("");
   const [roomId, setRoomID] = useState("");
@@ -47,7 +45,6 @@ const JoinRoomScreen = ({ handlerisJoinRoomScreen, handlerisRoomScreen }) => {
           dispatch(setRoomId(roomId));
           handlerisJoinRoomScreen();
           handlerisRoomScreen();
-          // navigate("/room", { replace: true });
         }
       } else {
         setErrorMsg("Meeting not found! Please check your meeting id");
@@ -59,66 +56,59 @@ const JoinRoomScreen = ({ handlerisJoinRoomScreen, handlerisRoomScreen }) => {
   };
 
   const createRoom = () => {
-    console.log("room created");
+    console.log("Room created");
     handlerisJoinRoomScreen();
     handlerisRoomScreen();
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.banner}>
-        <motion.h1 className={styles.logo}>Baat Chit</motion.h1>
-        <motion.p className={styles.slogan}>
-          Stay connected with all your friends and family with Baat Chit.
-        </motion.p>
-      </div>
-      <div className={styles.contentPanelConatiner}>
-        <div className={styles.contentPanel}>
-          <h1 className={styles.title}>
-            {isRoomHost ? `Host` : `Join`} meeting
-          </h1>
-          <div className={styles.inputsContainer}>
-            <input
-              className={styles.textField}
-              value={name}
-              placeholder="Enter your name"
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-            />
-            {!isRoomHost && (
+    <div className={"join-screen"}>
+      <div className={"join-container"}>
+        <div className={"banner"}>
+          <img
+            alt="join-image"
+            className="join-image"
+            src={joinScreenVideo}
+          ></img>
+        </div>
+        <div className={"contentPanelConatiner"}>
+          <div className={"contentPanel"}>
+            <h1 className={"title"}>You {isRoomHost ? `host` : `join`} room</h1>
+            <div className={"inputsContainer"}>
               <input
-                className={styles.textField}
-                value={roomId}
-                placeholder="Enter the meeting id"
+                className="join-input"
+                value={name}
+                placeholder="Enter your name"
                 type="text"
-                onChange={(e) => setRoomID(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
-            )}
-            <div className={styles.audioOnlyCheck}>
-              <input
-                type="checkbox"
-                name="audioOnly"
-                checked={connectOnlyWithAudio}
-                onChange={(e) => handleAudioOnly(e)}
-              />
-              <label htmlFor="audioOnly">Join with audio only</label>
+              {!isRoomHost && (
+                <input
+                  className="join-input"
+                  value={roomId}
+                  placeholder="Enter the meeting id"
+                  type="text"
+                  onChange={(e) => setRoomID(e.target.value)}
+                />
+              )}
+              {/* <div className={"audioOnlyCheck"}>
+                <input
+                  type="checkbox"
+                  name="audioOnly"
+                  checked={connectOnlyWithAudio}
+                  onChange={(e) => handleAudioOnly(e)}
+                />
+                <label htmlFor="audioOnly">Join with audio only</label>
+              </div> */}
+              {/* </div> */}
+              <div className={"errMsgContainer"}>
+                {errorMsg !== "" && <p className={"errMsg"}>{errorMsg}</p>}
+              </div>
+              <ExtraButton title=" Join" func={handleJoinRoom} />
+              {/* <button onClick={() => handleJoinRoom()} className={"joinBtn"}>
+                Join
+              </button> */}
             </div>
-          </div>
-          <div className={styles.errMsgContainer}>
-            {errorMsg !== "" && <p className={styles.errMsg}>{errorMsg}</p>}
-          </div>
-          <div className={styles.btnsContainer}>
-            <button onClick={handleJoinRoom} className={styles.joinBtn}>
-              Join
-            </button>
-            <button
-              onClick={() => {
-                navigate("/");
-              }}
-              className={styles.cancelBtn}
-            >
-              Cancel
-            </button>
           </div>
         </div>
       </div>

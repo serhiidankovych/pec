@@ -1,8 +1,6 @@
 import React from "react";
+import { PiSignOutBold } from "react-icons/pi";
 import styles from "./RoomBtnPanel.module.css";
-
-import call from "../../../assets/icons/call.svg";
-
 const LeaveBtn = () => {
   const handleLeaveBntPress = () => {
     const siteUrl = window.location.origin;
@@ -10,8 +8,8 @@ const LeaveBtn = () => {
   };
 
   return (
-    <div onClick={handleLeaveBntPress}>
-      <img src={call} alt="leave-call" className={styles.btnImg} />
+    <div onClick={handleLeaveBntPress} className={styles.btnContainer}>
+      <PiSignOutBold />
     </div>
   );
 };

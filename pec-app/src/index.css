@@ -5,6 +5,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #111112;
   font-family: "Red Rose", cursive;
+  overflow-x: hidden;
 }
 
 code {

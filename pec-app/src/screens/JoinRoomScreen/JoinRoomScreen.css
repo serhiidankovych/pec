@@ -1,93 +1,67 @@
-.mainContainer {
+.join-screen {
   width: 100%;
   height: 100%;
   position: absolute;
   top: 3px;
   left: 0;
-  background-color: rgb(0 0 0 / 70%);
+  background-color: rgb(0 0 0 / 90%);
   display: flex;
   align-items: center;
   justify-content: center;
+  align-content: center;
   flex-direction: row;
 }
-
-@keyframes rotate {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.2);
-  }
+.join-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(13, 253, 167);
+  padding: 16px;
+  border-radius: 25px;
+  gap: 8px;
+}
+.join-image {
+  width: auto;
+  height: 195px;
 }
 
 .banner {
-  width: 40%;
-  height: 100vh;
-  padding: 2rem;
-  /* background-color: var(--secondary-bg-color); */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.banner .logo {
-  font-family: "Fredoka One", cursive;
-  color: var(--fore-color);
-  text-shadow: 1px 1px #fff;
-  font-size: 54px;
-}
-
-.banner .slogan {
-  color: rgb(207, 207, 207);
-  margin-top: 1.5rem;
-  padding: 0 3rem;
-  text-align: center;
-}
-
 .contentPanelConatiner {
-  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .contentPanel {
-  width: 400px;
-  /* height: 400px; */
-  background-color: var(--secondary-bg-color);
-  border-radius: 12px;
-  padding: 4rem 2rem;
-  color: #fff;
+  color: #000000;
 }
 
 .title {
-  color: var(--fore-color);
   font-size: 24px;
 }
 
 .inputsContainer {
-  margin-top: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.textField {
-  width: 250px;
-  margin: 0.5rem 0;
-  border: 0;
-  outline: 0;
-  background-color: var(--secondary-bg-color);
-  color: #fff;
-  padding: 0.25rem 0.5rem;
-  border-radius: 8px;
-  border: 1.5px solid var(--fore-color);
-}
-
-.textField:active,
-.textField:focus {
-  border-color: var(--fore-bright-color);
+.join-input {
+  outline: none;
+  border: 2px solid #000;
+  box-shadow: 3px 4px 0px 1px #000;
+  width: 158px;
+  padding: 12px 10px;
+  border-radius: 4px;
+  font-size: 15px;
+  margin-bottom: 6px;
 }
 
 .audioOnlyCheck {
@@ -117,20 +91,6 @@
   transition-duration: 0.3s;
   background-color: var(--secondary-bg-color);
   cursor: pointer;
-}
-
-.audioOnlyCheck input:checked {
-  background-color: var(--fore-color);
-}
-
-.audioOnlyCheck input:checked::after {
-  content: "\2713";
-  display: block;
-  text-align: center;
-  color: #fff;
-  position: absolute;
-  left: 0.15rem;
-  top: 0;
 }
 
 .errMsgContainer {

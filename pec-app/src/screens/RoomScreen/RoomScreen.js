@@ -8,15 +8,16 @@ import RoomBtnPanel from "../../components/buttons/room-btn-panel/RoomBtnPanel";
 import Draggable from "react-draggable";
 import * as webRTCHandler from "../../utils/webRTCHandler";
 import { useIsFirstRender } from "../../hooks/useIsFirstRender";
+import { motion } from "framer-motion";
 
 const RoomScreen = () => {
   const position = { x: 100, y: 100 };
   const [openSidePanel, setOpenSidePanel] = useState(false);
-  const { roomId, isRoomHost, identity } = useSelector((st) => ({
-    roomId: st.roomId,
-    isRoomHost: st.isRoomHost,
-    identity: st.identity,
-  }));
+
+  const isRoomHost = useSelector((state) => state.isRoomHost);
+  const roomId = useSelector((state) => state.roomId);
+  const identity = useSelector((state) => state.identity);
+
   const isFirstRender = useIsFirstRender();
 
   useEffect(() => {
@@ -26,7 +27,6 @@ const RoomScreen = () => {
       roomId
     );
     console.log("getLocalPreviewAndInitRoomConnection in RoomScreen");
-    console.log(`${isRoomHost} ${identity} ${roomId}`);
   }, []);
 
   useEffect(() => {
@@ -41,30 +41,15 @@ const RoomScreen = () => {
   const mainPanelVariants = {};
 
   const sideBarVariants = {};
-
+  const handle = <div className="handle"></div>;
   return (
-    <Draggable defaultPosition={position}>
-      <div className="main-container">
-        <div className="main-panel-container">
-          <div className="meet-id-container">
-            <p className="meet-id">
-              Meet ID: <b>{roomId ? roomId : " null"}</b>
-            </p>
-          </div>
-          <TitleBar
-            openSidePanel={openSidePanel}
-            setOpenSidePanel={setOpenSidePanel}
-          />
-          <InfoBar />
-          <div id="videos_container"></div>
+    <Draggable handle=".handle" defaultPosition={position}>
+      <div className="drag-element">
+        <div className="room-screen">
+          {handle}
+          <div className="video" id="videos_container"></div>
           <RoomBtnPanel />
         </div>
-
-        {openSidePanel && (
-          <div className="side-panel-container">
-            <SidePanel />
-          </div>
-        )}
       </div>
     </Draggable>
   );

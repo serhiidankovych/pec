@@ -1,10 +1,16 @@
 import React from "react";
 import "./ExtraButton.css";
+import { motion } from "framer-motion";
 function ExtraButton({ title, func }) {
   return (
-    <button className="extra-button" onClick={() => func()}>
+    <motion.button
+      className="extra-button"
+      onClick={() => func()}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.8 }}
+    >
       {title}
-    </button>
+    </motion.button>
   );
 }
 

@@ -92,7 +92,7 @@ const Whiteboard = ({ socket }) => {
           value={color}
           onChange={handleColorChange}
         />
-        <RoomId roomCode={roomCode} />
+        {/* <RoomId roomCode={roomCode} /> */}
       </div>
 
       <canvas

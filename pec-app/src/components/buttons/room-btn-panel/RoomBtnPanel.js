@@ -4,7 +4,6 @@ import LeaveBtn from "./LeaveBtn";
 import MicBtn from "./MicBtn";
 import styles from "./RoomBtnPanel.module.css";
 import ScreenShareBtn from "./ScreenShareBtn";
-import { motion } from "framer-motion";
 
 const RoomBtnPanel = () => {
   return (

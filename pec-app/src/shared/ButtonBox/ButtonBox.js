@@ -1,14 +1,20 @@
 import React from "react";
 import "./ButtonBox.css";
-function ButtonBox({ title, color, func }) {
+import { motion } from "framer-motion";
+function ButtonBox({ focusBtn, defaultBtn, color, func }) {
+  const [isHovered, setHovered] = React.useState(false);
+
   return (
-    <div
+    <motion.button
       className="button-box"
       style={{ backgroundColor: color }}
       onClick={() => func()}
+      animate={isHovered ? "hover" : "initial"}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {title}
-    </div>
+      {isHovered ? focusBtn : defaultBtn}
+    </motion.button>
   );
 }
 

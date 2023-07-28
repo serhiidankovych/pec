@@ -18,7 +18,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
   identity,
   roomId
 ) => {
-  console.log("WEBRTC HANDLER INFO");
+  console.log("WEBRTC HANDLER IN");
   console.log(`${isRoomHost} ${identity} ${roomId}`);
   //await fetchTURNCredentials();
 
@@ -123,6 +123,7 @@ const showLocalVideoPreview = (stream) => {
   const videoElement = document.createElement("video");
   videoElement.autoplay = true;
   videoElement.muted = true;
+  videoElement.className = "video";
   videoElement.srcObject = stream;
   videoElement.onloadedmetadata = () => {
     videoElement.play();

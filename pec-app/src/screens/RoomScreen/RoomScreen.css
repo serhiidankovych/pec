@@ -1,40 +1,51 @@
-.main-container {
-  color: #fff;
-
+.room-screen {
+  color: #000000;
   position: absolute;
   display: flex;
   overflow: hidden;
+  min-width: 245px;
+  min-height: 160px;
 
-  background-color: blue;
+  padding: 16px;
+
+  background: #c0d1f2;
+  border-radius: 25px;
+  border: 3px solid #000;
 }
 
 .meet-id-container {
   position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
+  z-index: 1;
 }
 
 .meet-id {
-  padding: 0.5rem 2.5rem;
-
-  border-end-end-radius: 12px;
-  border-end-start-radius: 12px;
-  color: var(--fore-color);
   font-size: 14px;
-  font-weight: 500;
 }
 
-.main-panel-container {
-  position: relative;
-  height: 100%;
-  max-height: 100vh;
-  padding: 2rem;
+.videos_container_styles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.video_track_container {
+  transform: scaleX(-1);
+  /* border: 3px solid #000;
+  border-radius: 25px; */
+}
+.video {
+  border-radius: 25px;
 }
 
-.side-panel-container {
-  height: 100%;
-  padding: 1rem 1rem 1rem 0;
+.drag-element {
+}
+
+.handle {
+  height: 160px;
+  background-color: #000000;
+  cursor: grab;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 25px;
 }

@@ -3,7 +3,7 @@ import styles from "./RoomBtnPanel.module.css";
 import mic from "../../../assets/icons/mic.svg";
 import micOff from "../../../assets/icons/micOff.svg";
 import { toggleMic } from "../../../utils/webRTCHandler";
-
+import { PiMicrophoneBold, PiMicrophoneSlashBold } from "react-icons/pi";
 const MicBtn = () => {
   const [isMicOff, setIsMicOff] = useState(false);
 
@@ -14,7 +14,7 @@ const MicBtn = () => {
 
   return (
     <div onClick={handleMicBntPress} className={styles.btnContainer}>
-      <img src={isMicOff ? micOff : mic} alt="mic" className={styles.btnImg} />
+      {isMicOff ? <PiMicrophoneSlashBold /> : <PiMicrophoneBold />}
     </div>
   );
 };

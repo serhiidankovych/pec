@@ -6,6 +6,7 @@
   padding: 16px;
   align-items: stretch;
   gap: 8px;
+  width: 336px;
 }
 .app-image {
   width: 100%;

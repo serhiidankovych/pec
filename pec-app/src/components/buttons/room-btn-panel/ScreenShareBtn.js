@@ -3,7 +3,7 @@ import styles from "./RoomBtnPanel.module.css";
 import screenShare from "../../../assets/icons/screenShare.svg";
 import LocalScreenSharingPreview from "../../room/screen-share/LocalScreenSharingPreview";
 import { toggleScreenShare } from "../../../utils/webRTCHandler";
-
+import { PiScreencastBold } from "react-icons/pi";
 const constraints = {
   audio: false,
   video: true,
@@ -39,7 +39,7 @@ const ScreenShareBtn = () => {
   return (
     <>
       <div onClick={handleSSBntPress} className={styles.btnContainer}>
-        <img src={screenShare} alt="screen-share" className={styles.btnImg} />
+        <PiScreencastBold />
       </div>
       {isScreenShareActive && (
         <LocalScreenSharingPreview stream={screenSharingStream} />

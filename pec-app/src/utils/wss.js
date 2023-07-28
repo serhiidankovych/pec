@@ -16,7 +16,7 @@ export const connectWithSocketIOServer = () => {
 
   socket.on("room-update", ({ connectedUsers }) => {
     store.dispatch(setParticipants(connectedUsers));
-    console.log(" Set all participants for current room");
+    console.log("Set all participants for current room");
   });
 
   socket.on("conn-prepare", ({ connUserSocketId }) => {
@@ -38,7 +38,7 @@ export const connectWithSocketIOServer = () => {
   });
 };
 
-export const createNewRoom = (identity, onlyAudio = true) => {
+export const createNewRoom = (identity, onlyAudio = false) => {
   // emit an event to server that we would like to create new room
   const data = {
     identity,
@@ -48,7 +48,7 @@ export const createNewRoom = (identity, onlyAudio = true) => {
   socket.emit("create-new-room", data);
 };
 
-export const joinRoom = (identity, roomId, onlyAudio = true) => {
+export const joinRoom = (identity, roomId, onlyAudio = false) => {
   //emit an event to server that we would to join a room
   const data = {
     roomId,
