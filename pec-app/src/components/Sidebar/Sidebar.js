@@ -8,9 +8,10 @@ import {
   PiVideoCameraFill,
   PiPhoneCallFill,
   PiSquaresFourFill,
-  PiLinkSimpleBold,
+  PiLinkBold,
+  PiLinkBreakBold,
 } from "react-icons/pi";
-function Sidebar({ handlerisIntroScreen, handleCopyClick }) {
+function Sidebar({ handlerisIntroScreen, handleCopyClick, isRoomExist }) {
   return (
     <div className="sidebar">
       <div className="sidebar-container">
@@ -29,10 +30,11 @@ function Sidebar({ handlerisIntroScreen, handleCopyClick }) {
           focusBtn={<PiVideoCameraFill />}
           color="#FBEC4F"
           func={handlerisIntroScreen}
+          disabled={isRoomExist}
         />
         <ButtonBox
-          defaultBtn={<PiLinkSimpleBold />}
-          focusBtn={<PiLinkSimpleBold />}
+          defaultBtn={<PiLinkBold />}
+          focusBtn={<PiLinkBreakBold />}
           color="#FBEC4F"
           func={handleCopyClick}
         />

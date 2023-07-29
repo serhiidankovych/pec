@@ -1,0 +1,22 @@
+.header-room-id {
+  padding-left: 9px;
+  /* background-color: #e8eefb; */
+  background: rgb(232, 238, 251);
+  background: linear-gradient(
+    93deg,
+    rgba(232, 238, 251, 1) 0%,
+    rgba(203, 211, 228, 1) 82%
+  );
+  border-radius: 25px;
+  margin-right: 3px;
+  color: #000000;
+  border: 3px solid #b1c1e0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+}
+.header-formatted-id {
+  color: #565656;
+}

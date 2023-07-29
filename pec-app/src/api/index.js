@@ -5,3 +5,4 @@ const API = axios.create({
 });
 
 export const getRoomExists = (roomId) => API.get(`/room-exists/${roomId}`);
+export const getWhiteboardData = (roomId) => API.get(`/whiteboard/${roomId}`);

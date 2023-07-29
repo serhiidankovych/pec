@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ParticipantsList.module.css";
 import { useSelector } from "react-redux";
-
+import Avatar, { genConfig } from "react-nice-avatar";
 const ParticipantsList = () => {
   const { participants } = useSelector((st) => st);
 

@@ -16,16 +16,21 @@ import BackButton from "../shared/BackButton/BackButton";
 import IntroScreen from "../screens/IntroScreen/IntroScreen";
 import JoinRoomScreen from "../screens/JoinRoomScreen/JoinRoomScreen";
 import RoomScreen from "../screens/RoomScreen/RoomScreen";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import SoudsPanel from "../components/SoundsPanel/SoudsPanel.js";
 
 function Dashboard() {
   const [isMiniApps, setIsMiniApps] = React.useState(false);
   const [currentComponent, setCurrentComponent] = React.useState("");
-
   const [isIntroScreen, setIsIntroScreen] = React.useState(false);
   const [isJoinRoomScreen, setIsJoinRoomScreen] = React.useState(false);
   const [isRoomScreen, setIsRoomScreen] = React.useState(false);
+
   const roomId = useSelector((state) => state.roomId);
+  const isRoomExist = useSelector((state) => state.isRoomExist);
+
   const handlerisIntroScreen = () => {
     setIsIntroScreen((element) => !element);
     console.log("element");
@@ -54,12 +59,23 @@ function Dashboard() {
     setIsMiniApps(false);
     console.log("Return To Dashboard");
   };
+  const handleRoomIsNotCreated = () => {
+    toast("Host or join rooom first", {
+      position: toast.POSITION.BOTTOM_LEFT,
+      className: "toast-message",
+      autoClose: 1000,
+    });
+    console.log("RoomIsNotCreated");
+
+    handlerisIntroScreen();
+  };
+
   const handleCopyClick = async () => {
     if (roomId) {
       try {
         await navigator.clipboard.writeText(roomId);
         // Optional: Show a message indicating successful copy
-        alert("Copied to clipboard!");
+        console.log("Copied to clipboard!");
       } catch (err) {
         console.error("Failed to copy: ", err);
       }
@@ -70,7 +86,9 @@ function Dashboard() {
 
   return (
     <>
+      <ToastContainer />
       <div className="dashboard ">
+        <SoudsPanel />
         {isIntroScreen && (
           <IntroScreen
             handlerisJoinRoomScreen={handlerisJoinRoomScreen}
@@ -90,11 +108,12 @@ function Dashboard() {
           <Sidebar
             handlerisIntroScreen={handlerisIntroScreen}
             handleCopyClick={handleCopyClick}
+            isRoomExist={isRoomExist}
           />
           {isMiniApps ? (
             <div className="mini-app-and-back-button">
               <BackButton func={handleReturnToDashboard} />
-              <ComponentToRender socket={socket} />
+              <ComponentToRender socket={socket} roomId={roomId} />
             </div>
           ) : (
             <div className="app-wrapper">
@@ -102,24 +121,39 @@ function Dashboard() {
                 <h1 className="dashboard-title">Choose an activity</h1>
                 <img className="dashboard-title-image" src={dashboardImage} />
               </div>
-              <AppCard
-                appImage={whiteboardCover}
-                title="Whiteboard"
-                defenition="for drawing together"
-                func={(event) => handleSwitchMiniApps(event, "Whiteboard")}
-              />
-              <AppCard
-                appImage={soonCover}
-                title="Explain & Draw"
-                defenition="find out how good you could explain image to your friends"
-                func={(event) => handleSwitchMiniApps(event, "Whiteboard")}
-              />
-              <AppCard
-                appImage={soonCover}
-                title="Lyrics remover "
-                defenition="exersice with your fav songs"
-                func={(event) => handleSwitchMiniApps(event, "Whiteboard")}
-              />
+
+              <div className="dashboard-apps">
+                <AppCard
+                  appImage={whiteboardCover}
+                  title="Whiteboard"
+                  defenition="for drawing together"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
+                <AppCard
+                  appImage={soonCover}
+                  title="Explain & Draw"
+                  defenition="find out how good you could explain image to your friends"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
+                <AppCard
+                  appImage={soonCover}
+                  title="Lyrics remover "
+                  defenition="exersice with your fav songs"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
+              </div>
             </div>
           )}
         </div>

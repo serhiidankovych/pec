@@ -38,11 +38,14 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
+  const roomId = uuidv4();
   console.log("_____________CONNECTION____________");
   console.log(`user connected ${socket.id}`);
 
+  socket.emit("room-id", { roomId });
+
   socket.on("create-new-room", (data) => {
-    createNewRoomHandler(data, socket);
+    createNewRoomHandler(data, socket, roomId);
   });
 
   socket.on("join-room", (data) => {
@@ -58,23 +61,29 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    disconnectHandler(socket);
+    disconnectHandler(socket, roomId);
   });
+
+  //Whiteboard
+  socket.on("joinWhiteBoard", (roomCode) => {
+    console.log(`A user ${socket.id} joined the room ${roomCode}`);
+  });
+  socket.on("draw", (data, roomCode) => socket.to(roomCode).emit("draw", data));
 });
 
-const createNewRoomHandler = (data, socket) => {
+const createNewRoomHandler = (data, socket, roomId) => {
   console.log("_____________CREATE ROOM_____________");
 
   const { identity } = data;
 
   console.log(`${identity} is creating new room`);
-  const roomId = uuidv4();
-
+  const userId = roomId;
   const newUser = {
     identity,
     id: uuidv4(),
     socketId: socket.id,
     roomId,
+    userId,
   };
 
   const newRoom = {
@@ -90,12 +99,12 @@ const createNewRoomHandler = (data, socket) => {
   socket.join(roomId);
   console.log(`user joined room with ${roomId}`);
 
-  socket.emit("room-id", { roomId });
+  // socket.emit("room-id", { roomId });
   socket.emit("room-update", { connectedUsers: newRoom.connectedUsers });
 };
 
 const joinRoomHandler = (data, socket) => {
-  const { identity, roomId } = data;
+  const { identity, roomId, userId } = data;
 
   if (roomId !== null) {
     const newUser = {
@@ -103,6 +112,7 @@ const joinRoomHandler = (data, socket) => {
       id: uuidv4(),
       socketId: socket.id,
       roomId,
+      userId,
       //onlyAudio,
     };
 

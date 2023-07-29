@@ -1,8 +1,10 @@
 const Actions = {
   SET_IS_ROOM_HOST: "SET_IS_ROOM_HOST",
+  SET_IS_ROOM_EXIST: "SET_IS_ROOM_EXIST",
   SET_CONNECT_ONLY_WITH_AUDIO: "SET_CONNECT_ONLY_WITH_AUDIO",
   SET_IDENTITY: "SET_IDENTITY",
   SET_ROOM_ID: "SET_ROOM_ID",
+  SET_USER_ID: "SET_USER_ID",
   SET_SHOW_OVERLAY: "SET_SHOW_OVERLAY",
   SET_PARTICIPANTS: "SET_PARTICIPANTS",
   SET_MESSAGES: "SET_MESSAGES",
@@ -15,6 +17,12 @@ export const setIsRoomHost = (isRoomHost) => {
   return {
     type: Actions.SET_IS_ROOM_HOST,
     isRoomHost,
+  };
+};
+export const setIsRoomExist = (isRoomExist) => {
+  return {
+    type: Actions.SET_IS_ROOM_EXIST,
+    isRoomExist,
   };
 };
 
@@ -36,6 +44,12 @@ export const setRoomId = (roomId) => {
   return {
     type: Actions.SET_ROOM_ID,
     roomId,
+  };
+};
+export const setUserId = (userId) => {
+  return {
+    type: Actions.SET_USER_ID,
+    userId,
   };
 };
 

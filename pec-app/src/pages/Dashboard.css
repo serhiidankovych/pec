@@ -38,3 +38,18 @@
   gap: 8px;
   flex-direction: column;
 }
+.toast-message {
+  background: rgb(0, 0, 255);
+  color: #fff;
+  font-size: 20px;
+  width: 34vw;
+  padding: 30px 20px;
+}
+.dashboard-apps {
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

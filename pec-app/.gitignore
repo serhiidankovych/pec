@@ -2,8 +2,11 @@
 
 # dependencies
 /node_modules
+/pictures
+/sounds
 /.pnp
 .pnp.js
+
 
 # testing
 /coverage

@@ -2,18 +2,15 @@ import React, { useRef, useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
 import RoomId from "../../shared/RoomId/RoomId";
-import UserContext from "../../context/UserContext";
 
-const Whiteboard = ({ socket }) => {
-  const roomCode = React.useContext(UserContext);
-
+const Whiteboard = ({ socket, roomId }) => {
   useEffect(() => {
-    console.log(roomCode);
-    if (roomCode) {
-      socket.emit("joinRoom", roomCode);
-      console.log(roomCode);
+    console.log("whiteboard id:" + roomId);
+    if (roomId) {
+      socket.emit("joinWhiteBoard", roomId);
+      console.log(roomId);
     }
-  }, [roomCode]);
+  }, [roomId]);
 
   const canvasRef = useRef(null);
   const [color, setColor] = React.useState("#000000");
@@ -51,7 +48,7 @@ const Whiteboard = ({ socket }) => {
     socket.emit(
       "draw",
       { x: offsetX, y: offsetY, type: "down", color },
-      roomCode
+      roomId
     );
   };
 
@@ -61,7 +58,7 @@ const Whiteboard = ({ socket }) => {
     socket.emit(
       "draw",
       { x: offsetX, y: offsetY, type: "move", color },
-      roomCode
+      roomId
     );
 
     const canvas = canvasRef.current;
@@ -92,7 +89,6 @@ const Whiteboard = ({ socket }) => {
           value={color}
           onChange={handleColorChange}
         />
-        {/* <RoomId roomCode={roomCode} /> */}
       </div>
 
       <canvas

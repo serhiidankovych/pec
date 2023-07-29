@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import store from "../redux/store";
 import * as webRTCHandler from "./webRTCHandler";
-import { setParticipants, setRoomId } from "../redux/actions";
+import { setParticipants, setRoomId, setUserId } from "../redux/actions";
 import { socket } from ".././socketConfig";
 
 export const connectWithSocketIOServer = () => {
@@ -11,6 +11,7 @@ export const connectWithSocketIOServer = () => {
 
   socket.on("room-id", ({ roomId }) => {
     store.dispatch(setRoomId(roomId));
+    store.dispatch(setUserId(roomId));
     console.log("Set room id " + roomId);
   });
 
@@ -48,12 +49,13 @@ export const createNewRoom = (identity, onlyAudio = false) => {
   socket.emit("create-new-room", data);
 };
 
-export const joinRoom = (identity, roomId, onlyAudio = false) => {
+export const joinRoom = (identity, roomId, userId) => {
   //emit an event to server that we would to join a room
   const data = {
     roomId,
     identity,
-    onlyAudio,
+    userId,
+    // onlyAudio,
   };
   console.log("Joined to the room");
   socket.emit("join-room", data);

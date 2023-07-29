@@ -1,10 +1,14 @@
 import React from "react";
 import { PiSignOutBold } from "react-icons/pi";
 import styles from "./RoomBtnPanel.module.css";
+import { setIsRoomExist } from "../../../redux/actions";
+import { useDispatch } from "react-redux";
 const LeaveBtn = () => {
+  const dispatch = useDispatch();
+
   const handleLeaveBntPress = () => {
-    const siteUrl = window.location.origin;
-    window.location.href = siteUrl;
+    dispatch(setIsRoomExist(false));
+    //close logic
   };
 
   return (

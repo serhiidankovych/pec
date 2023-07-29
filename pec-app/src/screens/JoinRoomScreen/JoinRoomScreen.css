@@ -13,13 +13,19 @@
 }
 .join-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
   background-color: rgb(13, 253, 167);
   padding: 16px;
   border-radius: 25px;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.join-content {
+  display: flex;
+  flex-direction: row;
+  border-radius: 25px;
+  border: 3px solid #000;
+  padding: 8px;
 }
 .join-image {
   width: auto;

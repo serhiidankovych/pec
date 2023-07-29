@@ -16,7 +16,8 @@ let localStream;
 export const getLocalPreviewAndInitRoomConnection = async (
   isRoomHost,
   identity,
-  roomId
+  roomId,
+  userId
 ) => {
   console.log("WEBRTC HANDLER IN");
   console.log(`${isRoomHost} ${identity} ${roomId}`);
@@ -33,7 +34,9 @@ export const getLocalPreviewAndInitRoomConnection = async (
 
       store.dispatch(setShowOverlay(false));
 
-      isRoomHost ? wss.createNewRoom(identity) : wss.joinRoom(identity, roomId);
+      isRoomHost
+        ? wss.createNewRoom(identity)
+        : wss.joinRoom(identity, roomId, userId);
     })
     .catch((err) => {
       console.log(

@@ -3,8 +3,10 @@ import Actions from "./actions";
 const initState = {
   identity: "",
   isRoomHost: false,
+  isRoomExist: false,
   connectOnlyWithAudio: true,
   roomId: null,
+  userId: null,
   showOverlay: true,
   participants: [],
   messages: [],
@@ -20,6 +22,11 @@ const reducer = (state = initState, action) => {
         ...state,
         isRoomHost: action.isRoomHost,
       };
+    case Actions.SET_IS_ROOM_EXIST:
+      return {
+        ...state,
+        isRoomExist: action.isRoomExist,
+      };
     case Actions.SET_CONNECT_ONLY_WITH_AUDIO:
       return {
         ...state,
@@ -29,6 +36,11 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         roomId: action.roomId,
+      };
+    case Actions.SET_USER_ID:
+      return {
+        ...state,
+        userId: action.userId,
       };
     case Actions.SET_IDENTITY:
       return {

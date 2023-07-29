@@ -8,22 +8,19 @@ import { connectWithSocketIOServer } from "./utils/wss";
 import { v4 as uuid } from "uuid";
 
 function App() {
-  const roomId = uuid();
   React.useEffect(() => {
     connectWithSocketIOServer();
   }, []);
 
   return (
     <>
-      <UserContext.Provider value={roomId}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Lending />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Lending />} />
 
-            <Route path="dashboard" element={<Dashboard />} />
-          </Routes>
-        </BrowserRouter>
-      </UserContext.Provider>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
