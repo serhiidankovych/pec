@@ -1,7 +1,7 @@
 import React from "react";
 import "./ButtonBox.css";
 import { motion } from "framer-motion";
-function ButtonBox({ focusBtn, defaultBtn, color, func, disabled }) {
+function ButtonBox({ focusButton, defaultButton, color, func, disabled }) {
   const [isHovered, setHovered] = React.useState(false);
 
   return (
@@ -15,7 +15,7 @@ function ButtonBox({ focusBtn, defaultBtn, color, func, disabled }) {
       onMouseLeave={() => setHovered(false)}
       whileTap={{ borderRadius: "70px" }}
     >
-      {isHovered ? focusBtn : defaultBtn}
+      {isHovered ? focusButton : defaultButton}
     </motion.button>
   );
 }

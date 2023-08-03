@@ -1,0 +1,23 @@
+.sound-button {
+  display: flex;
+  background-color: #fbec4f;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+  width: 137px;
+  height: 15px;
+  border-radius: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  font-size: 12px;
+  gap: 8px;
+}
+.sound-image {
+  width: 42px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.sound-emoji {
+  font-size: 20px;
+}

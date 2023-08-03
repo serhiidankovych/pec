@@ -4,13 +4,11 @@ const cors = require("cors");
 const { v4: uuidv4 } = require("uuid");
 
 require("dotenv").config();
-//const { createNewRoomHandler, joinRoomHandler } = require("./handlers");
 
 const PORT = process.env.PORT || 5002;
 
 const app = express();
 const server = http.createServer(app);
-
 app.use(cors());
 
 let connectedUsers = [];
@@ -39,8 +37,9 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   const roomId = uuidv4();
-  console.log("_____________CONNECTION____________");
-  console.log(`user connected ${socket.id}`);
+
+  console.log("CONNECTION:");
+  console.log(`user (${roomId}) is connected  \n`);
 
   socket.emit("room-id", { roomId });
 
@@ -64,20 +63,26 @@ io.on("connection", (socket) => {
     disconnectHandler(socket, roomId);
   });
 
-  //Whiteboard
-  socket.on("joinWhiteBoard", (roomCode) => {
-    console.log(`A user ${socket.id} joined the room ${roomCode}`);
+  //Sound panel
+  socket.on("send-sound", (data) => {
+    const { roomId } = data;
+    socket.to(roomId).emit("receive-sound", data);
+    console.log("received sound from room: " + roomId);
   });
+
+  //Whiteboard
+
   socket.on("draw", (data, roomCode) => socket.to(roomCode).emit("draw", data));
 });
 
 const createNewRoomHandler = (data, socket, roomId) => {
-  console.log("_____________CREATE ROOM_____________");
+  console.log("CREATE ROOM:");
 
   const { identity } = data;
-
-  console.log(`${identity} is creating new room`);
   const userId = roomId;
+
+  console.log(`user (${userId}) created a new room\n`);
+
   const newUser = {
     identity,
     id: uuidv4(),
@@ -93,19 +98,13 @@ const createNewRoomHandler = (data, socket, roomId) => {
 
   connectedUsers = [...connectedUsers, newUser];
   rooms = [...rooms, newRoom];
-
-  console.log("_____________JOIN ROOM_____________");
-
   socket.join(roomId);
-  console.log(`user joined room with ${roomId}`);
-
-  // socket.emit("room-id", { roomId });
   socket.emit("room-update", { connectedUsers: newRoom.connectedUsers });
 };
 
 const joinRoomHandler = (data, socket) => {
   const { identity, roomId, userId } = data;
-
+  console.log("JOIN ROOM:");
   if (roomId !== null) {
     const newUser = {
       identity,
@@ -121,9 +120,8 @@ const joinRoomHandler = (data, socket) => {
     if (room) {
       room.connectedUsers = [...room.connectedUsers, newUser];
 
-      // join socket.io room
       socket.join(roomId);
-
+      console.log(`user (${userId}) joined room [${roomId}] \n`);
       // add new user to connected users array
       connectedUsers = [...connectedUsers, newUser];
 
@@ -149,14 +147,12 @@ const joinRoomHandler = (data, socket) => {
 
 const signalingHandler = (data, socket) => {
   const { connUserSocketId, signal } = data;
-
   const signalingData = { signal, connUserSocketId: socket.id };
   io.to(connUserSocketId).emit("conn-signal", signalingData);
 };
 
 const initializeConnectionHandler = (data, socket) => {
   const { connUserSocketId } = data;
-
   const initData = { connUserSocketId: socket.id };
   io.to(connUserSocketId).emit("conn-init", initData);
 };
@@ -170,6 +166,10 @@ const disconnectHandler = (socket) => {
       (user) => user.socketId !== socket.id
     );
     socket.leave(user.roomId);
+    console.log("DISCONNECT ROOM:");
+    console.log(
+      `user (${user.userId}) disconnected from room [${user.roomId}] \n`
+    );
     io.to(room.id).emit("user-disconnected", { socketId: socket.id });
     if (room.connectedUsers.length > 0) {
       io.to(room.id).emit("room-update", {
@@ -182,5 +182,5 @@ const disconnectHandler = (socket) => {
 };
 
 server.listen(PORT, () => {
-  console.log(`server is listening on port ${PORT}`);
+  console.log(`Server is listening on port ${PORT}`);
 });

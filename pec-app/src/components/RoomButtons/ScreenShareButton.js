@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import styles from "./RoomBtnPanel.module.css";
-import screenShare from "../../../assets/icons/screenShare.svg";
-import LocalScreenSharingPreview from "../../room/screen-share/LocalScreenSharingPreview";
-import { toggleScreenShare } from "../../../utils/webRTCHandler";
+import "../RoomButtonsPanel/RoomButtonsPanel.css";
+
+import LocalScreenSharingPreview from "./LocalScreenSharingPreview";
+import { toggleScreenShare } from "../../utils/webRTCHandler";
 import { PiScreencastBold } from "react-icons/pi";
 const constraints = {
   audio: false,
   video: true,
 };
 
-const ScreenShareBtn = () => {
+const ScreenShareButton = () => {
   const [isScreenShareActive, setIsScreenShareActive] = useState(false);
   const [screenSharingStream, setScreenSharingStream] = useState(null);
 
@@ -38,7 +38,7 @@ const ScreenShareBtn = () => {
 
   return (
     <>
-      <div onClick={handleSSBntPress} className={styles.btnContainer}>
+      <div onClick={handleSSBntPress} className={"btnContainer"}>
         <PiScreencastBold />
       </div>
       {isScreenShareActive && (
@@ -48,4 +48,4 @@ const ScreenShareBtn = () => {
   );
 };
 
-export default ScreenShareBtn;
+export default ScreenShareButton;

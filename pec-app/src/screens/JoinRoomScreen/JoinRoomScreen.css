@@ -115,7 +115,7 @@
   justify-content: flex-start;
 }
 
-.joinBtn {
+.joinButton {
   background-color: var(--fore-color);
   border: none;
   color: white;
@@ -129,11 +129,11 @@
   cursor: pointer;
 }
 
-.joinBtn:hover {
+.joinButton:hover {
   background-color: #05bba0;
 }
 
-.cancelBtn {
+.cancelButton {
   background-color: #fff;
   border: none;
   color: black;
@@ -146,6 +146,6 @@
   cursor: pointer;
 }
 
-.cancelBtn:hover {
+.cancelButton:hover {
   background-color: #e5e5e5;
 }

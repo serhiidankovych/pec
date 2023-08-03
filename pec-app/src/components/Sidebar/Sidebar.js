@@ -2,41 +2,47 @@ import React from "react";
 import "./Sidebar.css";
 import ButtonBox from "../../shared/ButtonBox/ButtonBox";
 import {
-  PiPhoneCallBold,
-  PiSquaresFourBold,
+  PiUsersBold,
+  PiUsersFill,
   PiVideoCameraBold,
   PiVideoCameraFill,
-  PiPhoneCallFill,
-  PiSquaresFourFill,
   PiLinkBold,
   PiLinkBreakBold,
+  PiMusicNotesBold,
+  PiMusicNotesFill,
 } from "react-icons/pi";
-function Sidebar({ handlerisIntroScreen, handleCopyClick, isRoomExist }) {
+function Sidebar({
+  handlerisIntroScreen,
+  handleCopyClick,
+  isRoomExist,
+  handlerisSoundsPanel,
+}) {
   return (
     <div className="sidebar">
       <div className="sidebar-container">
         <ButtonBox
-          defaultBtn={<PiSquaresFourBold />}
-          focusBtn={<PiSquaresFourFill />}
+          defaultButton={<PiUsersBold />}
+          focusButton={<PiUsersFill />}
           color="#FBEC4F"
         />
         <ButtonBox
-          defaultBtn={<PiPhoneCallBold />}
-          focusBtn={<PiPhoneCallFill />}
-          color="#FBEC4F"
-        />
-        <ButtonBox
-          defaultBtn={<PiVideoCameraBold />}
-          focusBtn={<PiVideoCameraFill />}
+          defaultButton={<PiVideoCameraBold />}
+          focusButton={<PiVideoCameraFill />}
           color="#FBEC4F"
           func={handlerisIntroScreen}
           disabled={isRoomExist}
         />
         <ButtonBox
-          defaultBtn={<PiLinkBold />}
-          focusBtn={<PiLinkBreakBold />}
+          defaultButton={<PiLinkBold />}
+          focusButton={<PiLinkBreakBold />}
           color="#FBEC4F"
           func={handleCopyClick}
+        />
+        <ButtonBox
+          defaultButton={<PiMusicNotesBold />}
+          focusButton={<PiMusicNotesFill />}
+          color="#FBEC4F"
+          func={handlerisSoundsPanel}
         />
       </div>
     </div>

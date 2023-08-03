@@ -1,9 +1,9 @@
 import React from "react";
 import { PiCaretUpBold, PiCaretDownBold } from "react-icons/pi";
-import styles from "./RoomBtnPanel.module.css";
+import "../RoomButtonsPanel/RoomButtonsPanel.css";
 const HideButton = ({ handlePanelDisplayeds, isPanelDisplayed }) => {
   return (
-    <div onClick={handlePanelDisplayeds} className={styles.btnContainer}>
+    <div onClick={handlePanelDisplayeds} className={"btnContainer"}>
       {isPanelDisplayed ? <PiCaretUpBold /> : <PiCaretDownBold />}
     </div>
   );

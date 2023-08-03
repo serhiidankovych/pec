@@ -25,7 +25,7 @@ const JoinRoomScreen = ({ handlerisJoinRoomScreen, handlerisRoomScreen }) => {
   const dispatch = useDispatch();
 
   const isRoomHost = useSelector((state) => state.isRoomHost);
-  const isRoomExist = useSelector((state) => state.isRoomExist);
+
   const connectOnlyWithAudio = useSelector(
     (state) => state.connectOnlyWithAudio
   );
@@ -142,23 +142,20 @@ const JoinRoomScreen = ({ handlerisJoinRoomScreen, handlerisRoomScreen }) => {
                       onChange={(e) => setRoomID(e.target.value)}
                     />
                   )}
-                  {/* <div className={"audioOnlyCheck"}>
-                <input
-                  type="checkbox"
-                  name="audioOnly"
-                  checked={connectOnlyWithAudio}
-                  onChange={(e) => handleAudioOnly(e)}
-                />
-                <label htmlFor="audioOnly">Join with audio only</label>
-              </div> */}
-                  {/* </div> */}
+                  <div className={"audioOnlyCheck"}>
+                    <input
+                      type="checkbox"
+                      name="audioOnly"
+                      checked={connectOnlyWithAudio}
+                      onChange={(e) => handleAudioOnly(e)}
+                    />
+                    <label htmlFor="audioOnly">Join with audio only</label>
+                  </div>
+
                   <div className={"errMsgContainer"}>
                     {errorMsg !== "" && <p className={"errMsg"}>{errorMsg}</p>}
                   </div>
                   <ExtraButton title=" Join" func={handleJoinRoom} />
-                  {/* <button onClick={() => handleJoinRoom()} className={"joinBtn"}>
-                Join
-              </button> */}
                 </div>
               </div>
             </div>

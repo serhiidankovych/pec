@@ -3,12 +3,17 @@ import store from "../redux/store";
 import { setShowOverlay } from "../redux/actions";
 import Peer from "simple-peer";
 
-const defaultConstraints = {
+const videoConstraints = {
   audio: true,
   video: {
     width: "280",
     height: "160",
   },
+};
+
+const onlyAudioConstraints = {
+  audio: true,
+  video: false,
 };
 
 let localStream;
@@ -17,16 +22,17 @@ export const getLocalPreviewAndInitRoomConnection = async (
   isRoomHost,
   identity,
   roomId,
-  userId
+  userId,
+  onlyAudio
 ) => {
   console.log("WEBRTC HANDLER IN");
   console.log(`${isRoomHost} ${identity} ${roomId}`);
   //await fetchTURNCredentials();
 
-  // const constraints = onlyAudio ? onlyAudioConstraints : defaultConstraints;
+  const constraints = onlyAudio ? onlyAudioConstraints : videoConstraints;
 
   navigator.mediaDevices
-    .getUserMedia(defaultConstraints)
+    .getUserMedia(constraints)
     .then((stream) => {
       console.log("successfuly received local stream");
       localStream = stream;
@@ -172,7 +178,7 @@ export const toggleMic = (isMuted) => {
 };
 
 export const toggleCamera = (isDisabled) => {
-  localStream.getVideoTracks()[0].enabled = isDisabled ? true : false;
+  localStream.getVideoTracks()[0].enabled = isDisabled;
 };
 
 export const toggleScreenShare = (

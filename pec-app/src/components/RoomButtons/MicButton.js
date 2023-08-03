@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from "./RoomBtnPanel.module.css";
+import "../RoomButtonsPanel/RoomButtonsPanel.css";
 
-import { toggleMic } from "../../../utils/webRTCHandler";
+import { toggleMic } from "../../utils/webRTCHandler";
 import { PiMicrophoneBold, PiMicrophoneSlashBold } from "react-icons/pi";
-const MicBtn = () => {
+const MicButton = () => {
   const [isMicOff, setIsMicOff] = useState(false);
 
   const handleMicBntPress = () => {
@@ -12,10 +12,10 @@ const MicBtn = () => {
   };
 
   return (
-    <div onClick={handleMicBntPress} className={styles.btnContainer}>
+    <div onClick={handleMicBntPress} className={"btnContainer"}>
       {isMicOff ? <PiMicrophoneSlashBold /> : <PiMicrophoneBold />}
     </div>
   );
 };
 
-export default MicBtn;
+export default MicButton;

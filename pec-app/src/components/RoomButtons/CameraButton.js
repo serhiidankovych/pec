@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import styles from "./RoomBtnPanel.module.css";
-import camera from "../../../assets/icons/camera.svg";
-import cameraOff from "../../../assets/icons/cameraOff.svg";
-import { toggleCamera } from "../../../utils/webRTCHandler";
+import "../RoomButtonsPanel/RoomButtonsPanel.css";
+import { toggleCamera } from "../../utils/webRTCHandler";
 import { PiVideoCameraBold, PiVideoCameraSlashBold } from "react-icons/pi";
-const CameraBtn = () => {
+const CameraButton = () => {
   const [isCameraOff, setIsCameraOff] = useState(false);
 
   const handleCameraBntPress = () => {
@@ -13,10 +11,10 @@ const CameraBtn = () => {
   };
 
   return (
-    <div onClick={handleCameraBntPress} className={styles.btnContainer}>
+    <div onClick={handleCameraBntPress} className={"btnContainer"}>
       {isCameraOff ? <PiVideoCameraSlashBold /> : <PiVideoCameraBold />}
     </div>
   );
 };
 
-export default CameraBtn;
+export default CameraButton;

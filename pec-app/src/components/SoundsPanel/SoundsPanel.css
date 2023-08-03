@@ -1,0 +1,32 @@
+.sounds-panel {
+  background-color: #4f75fb;
+  padding: 20px;
+  border-radius: 25px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  margin-left: 95px;
+  border: 3px solid #000;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.sounds-panel-container {
+  height: 100px;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 523px;
+  padding-left: 20px;
+  padding-top: 8px;
+}
+.sounds-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-direction: row;
+}

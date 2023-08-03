@@ -41,10 +41,10 @@
   width: 18px;
 }
 
-.leaveBtnContainer {
+.leaveButtonContainer {
   background-color: var(--warning-color);
 }
 
-.leaveBtnContainer img {
+.leaveButtonContainer img {
   width: 20px;
 }

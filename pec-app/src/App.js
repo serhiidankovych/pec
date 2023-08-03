@@ -3,9 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Lending from "./components/Lending/Lending";
 import Dashboard from "./pages/Dashboard";
-import UserContext from "./context/UserContext";
 import { connectWithSocketIOServer } from "./utils/wss";
-import { v4 as uuid } from "uuid";
 
 function App() {
   React.useEffect(() => {
@@ -17,7 +15,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Lending />} />
-
           <Route path="dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>

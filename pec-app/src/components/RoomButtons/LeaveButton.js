@@ -1,9 +1,9 @@
 import React from "react";
 import { PiSignOutBold } from "react-icons/pi";
-import styles from "./RoomBtnPanel.module.css";
-import { setIsRoomExist } from "../../../redux/actions";
+import "../RoomButtonsPanel/RoomButtonsPanel.css";
+import { setIsRoomExist } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-const LeaveBtn = () => {
+const LeaveButton = () => {
   const dispatch = useDispatch();
 
   const handleLeaveBntPress = () => {
@@ -12,10 +12,10 @@ const LeaveBtn = () => {
   };
 
   return (
-    <div onClick={handleLeaveBntPress} className={styles.btnContainer}>
+    <div onClick={handleLeaveBntPress} className={"btnContainer"}>
       <PiSignOutBold />
     </div>
   );
 };
 
-export default LeaveBtn;
+export default LeaveButton;

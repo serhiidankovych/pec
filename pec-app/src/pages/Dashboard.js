@@ -1,52 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { socket } from "../socketConfig.js";
-import "./Dashboard.css";
+import { ToastContainer, toast } from "react-toastify";
 
-import UserContext from "../context/UserContext.js";
+import "./Dashboard.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import Header from "../components/Header/Header";
 import Sidebar from "../components/Sidebar/Sidebar";
 import AppCard from "../shared/AppCard/AppCard";
-import templateCover from "../pictures/template-cover.png";
-import soonCover from "../pictures/soon-cover.png";
-import whiteboardCover from "../pictures/whiteboard-cover.png";
-
-import dashboardImage from "../pictures/dashboard-splash.png";
-import Whiteboard from "../mini-apps/Whiteboard/Whiteboard";
 import BackButton from "../shared/BackButton/BackButton";
 import IntroScreen from "../screens/IntroScreen/IntroScreen";
 import JoinRoomScreen from "../screens/JoinRoomScreen/JoinRoomScreen";
 import RoomScreen from "../screens/RoomScreen/RoomScreen";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
-import SoudsPanel from "../components/SoundsPanel/SoudsPanel.js";
+import SoundsPanel from "../components/SoundsPanel/SoundsPanel.js";
+
+import soonCover from "../pictures/soon-cover.png";
+import whiteboardCover from "../pictures/whiteboard-cover.png";
+import dashboardImage from "../pictures/dashboard-splash.png";
+
+import Whiteboard from "../mini-apps/Whiteboard/Whiteboard";
 
 function Dashboard() {
-  const [isMiniApps, setIsMiniApps] = React.useState(false);
-  const [currentComponent, setCurrentComponent] = React.useState("");
-  const [isIntroScreen, setIsIntroScreen] = React.useState(false);
-  const [isJoinRoomScreen, setIsJoinRoomScreen] = React.useState(false);
-  const [isRoomScreen, setIsRoomScreen] = React.useState(false);
+  const [isMiniApps, setIsMiniApps] = useState(false);
+  const [currentComponent, setCurrentComponent] = useState("");
+  const [isIntroScreen, setIsIntroScreen] = useState(false);
+  const [isJoinRoomScreen, setIsJoinRoomScreen] = useState(false);
+  const [isRoomScreen, setIsRoomScreen] = useState(false);
+  const [isSoundsPanel, setIsSoundsPanel] = useState(false);
 
   const roomId = useSelector((state) => state.roomId);
   const isRoomExist = useSelector((state) => state.isRoomExist);
 
-  const handlerisIntroScreen = () => {
-    setIsIntroScreen((element) => !element);
-    console.log("element");
-  };
-
-  const handlerisJoinRoomScreen = () => {
-    setIsJoinRoomScreen((element) => !element);
-    console.log("element");
-  };
-  const handlerisRoomScreen = () => {
-    setIsRoomScreen((element) => !element);
-    console.log("element");
-  };
-
   const componentMappings = {
     Whiteboard: Whiteboard,
+  };
+
+  const toggleState = (setter) => {
+    setter((element) => !element);
   };
 
   const handleSwitchMiniApps = (event, miniAppName) => {
@@ -59,22 +50,21 @@ function Dashboard() {
     setIsMiniApps(false);
     console.log("Return To Dashboard");
   };
+
   const handleRoomIsNotCreated = () => {
-    toast("Host or join rooom first", {
+    toast("Host or join room first", {
       position: toast.POSITION.BOTTOM_LEFT,
       className: "toast-message",
       autoClose: 1000,
     });
     console.log("RoomIsNotCreated");
-
-    handlerisIntroScreen();
+    toggleState(setIsIntroScreen);
   };
 
   const handleCopyClick = async () => {
     if (roomId) {
       try {
         await navigator.clipboard.writeText(roomId);
-        // Optional: Show a message indicating successful copy
         console.log("Copied to clipboard!");
       } catch (err) {
         console.error("Failed to copy: ", err);
@@ -87,18 +77,17 @@ function Dashboard() {
   return (
     <>
       <ToastContainer />
-      <div className="dashboard ">
-        <SoudsPanel />
+      <div className="dashboard">
         {isIntroScreen && (
           <IntroScreen
-            handlerisJoinRoomScreen={handlerisJoinRoomScreen}
-            handlerisIntroScreen={handlerisIntroScreen}
+            handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+            handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
           />
         )}
         {isJoinRoomScreen && (
           <JoinRoomScreen
-            handlerisJoinRoomScreen={handlerisJoinRoomScreen}
-            handlerisRoomScreen={handlerisRoomScreen}
+            handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+            handlerisRoomScreen={() => toggleState(setIsRoomScreen)}
           />
         )}
         {isRoomScreen && <RoomScreen />}
@@ -106,9 +95,10 @@ function Dashboard() {
         <Header />
         <div className="dashboard-container">
           <Sidebar
-            handlerisIntroScreen={handlerisIntroScreen}
+            handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
             handleCopyClick={handleCopyClick}
             isRoomExist={isRoomExist}
+            handlerisSoundsPanel={() => toggleState(setIsSoundsPanel)}
           />
           {isMiniApps ? (
             <div className="mini-app-and-back-button">
@@ -119,7 +109,11 @@ function Dashboard() {
             <div className="app-wrapper">
               <div className="dashboard-title-and-image">
                 <h1 className="dashboard-title">Choose an activity</h1>
-                <img className="dashboard-title-image" src={dashboardImage} />
+                <img
+                  className="dashboard-title-image"
+                  src={dashboardImage}
+                  alt="Dashboard"
+                />
               </div>
 
               <div className="dashboard-apps">
@@ -145,8 +139,8 @@ function Dashboard() {
                 />
                 <AppCard
                   appImage={soonCover}
-                  title="Lyrics remover "
-                  defenition="exersice with your fav songs"
+                  title="Lyrics remover"
+                  defenition="exercise with your favorite songs"
                   func={(event) => {
                     isRoomExist
                       ? handleSwitchMiniApps(event, "Whiteboard")
@@ -157,6 +151,13 @@ function Dashboard() {
             </div>
           )}
         </div>
+        {isSoundsPanel && (
+          <SoundsPanel
+            setIsSoundsPanel={setIsSoundsPanel}
+            socket={socket}
+            roomId={roomId}
+          />
+        )}
       </div>
     </>
   );

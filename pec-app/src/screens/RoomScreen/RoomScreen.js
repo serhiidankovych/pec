@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./RoomScreen.css";
 import { useSelector } from "react-redux";
-import RoomBtnPanel from "../../components/buttons/room-btn-panel/RoomBtnPanel";
+import RoomButtonPanel from "../../components/RoomButtonsPanel/RoomButtonsPanel";
 import Draggable from "react-draggable";
 import * as webRTCHandler from "../../utils/webRTCHandler";
 import { useIsFirstRender } from "../../hooks/useIsFirstRender";
@@ -16,13 +16,15 @@ const RoomScreen = () => {
   const userId = useSelector((state) => state.userId);
 
   const isFirstRender = useIsFirstRender();
+  const onlyAudio = true;
 
   useEffect(() => {
     webRTCHandler.getLocalPreviewAndInitRoomConnection(
       isRoomHost,
       identity,
       roomId,
-      userId
+      userId,
+      onlyAudio
     );
     console.log("getLocalPreviewAndInitRoomConnection in RoomScreen");
     console.log(userId);
@@ -49,7 +51,7 @@ const RoomScreen = () => {
         <div className="room-screen">
           {handle}
           <div className="video" id="videos_container"></div>
-          <RoomBtnPanel />
+          <RoomButtonPanel />
           <ParticipantsIdentity />
         </div>
       </div>
