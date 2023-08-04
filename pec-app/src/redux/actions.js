@@ -2,10 +2,10 @@ const Actions = {
   SET_IS_ROOM_HOST: "SET_IS_ROOM_HOST",
   SET_IS_ROOM_EXIST: "SET_IS_ROOM_EXIST",
   SET_CONNECT_ONLY_WITH_AUDIO: "SET_CONNECT_ONLY_WITH_AUDIO",
+  SET_CONNECT_ONLY_ROOM: " SET_CONNECT_ONLY_ROOM",
   SET_IDENTITY: "SET_IDENTITY",
   SET_ROOM_ID: "SET_ROOM_ID",
   SET_USER_ID: "SET_USER_ID",
-  SET_SHOW_OVERLAY: "SET_SHOW_OVERLAY",
   SET_PARTICIPANTS: "SET_PARTICIPANTS",
   SET_MESSAGES: "SET_MESSAGES",
   SET_ACTIVE_CONVERSATION: "SET_ACTIVE_CONVERSATION",
@@ -33,6 +33,13 @@ export const setConnectOnlyWithAudio = (onlyWithAudio) => {
   };
 };
 
+export const setConnectOnlyRoom = (connectOnlyRoom) => {
+  return {
+    type: Actions.SET_CONNECT_ONLY_ROOM,
+    connectOnlyRoom,
+  };
+};
+
 export const setIdentity = (identity) => {
   return {
     type: Actions.SET_IDENTITY,
@@ -50,13 +57,6 @@ export const setUserId = (userId) => {
   return {
     type: Actions.SET_USER_ID,
     userId,
-  };
-};
-
-export const setShowOverlay = (showOverlay) => {
-  return {
-    type: Actions.SET_SHOW_OVERLAY,
-    showOverlay,
   };
 };
 

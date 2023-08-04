@@ -20,31 +20,6 @@ function SoundsPanel({ setIsSoundsPanel, socket, roomId }) {
     playSoundEffectWrong,
   } = Sounds();
 
-  // React.useEffect(() => {
-  //   console.log("SoundsPanel id:" + roomId);
-  // }, [roomId]);
-
-  // const handleSoundPanel = () => {
-  //   const data = { roomId };
-  //   playSoundEffectBruuh();
-  //   socket.emit("send-sound", data);
-  //   console.log("handleSoundPanel");
-  // };
-
-  // socket.on("receive-sound", ({ roomId }) => {
-  //   playSoundEffectBruuh();
-  //   console.log("Received-sound from:" + roomId);
-  // });
-
-  // useEffect(() => {
-  //   console.log("SoundsPanel id:" + roomId);
-
-  //   // Clean up the event listener on unmount
-  //   return () => {
-  //     socket.off("receive-sound");
-  //   };
-  // }, [roomId, socket]);
-
   const handleSoundPanel = () => {
     const data = { roomId };
     playSoundEffectBruuh();

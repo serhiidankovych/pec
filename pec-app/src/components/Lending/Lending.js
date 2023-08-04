@@ -1,10 +1,15 @@
-import React from "react";
-import Header from "../Header/Header";
+import React, { useEffect } from "react";
 
+import "./Lending.css";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setIsRoomExist } from "../../redux/actions";
+
+import Header from "../Header/Header";
 import SmallBox from "../../shared/SmallBox/SmallBox";
 import LargeBox from "../../shared/LargeBox/LargeBox";
 import Footer from "../Footer/Footer";
-import "./Lending.css";
+
 import lendingStuding from "../../pictures/lending-studying.png";
 import heartLending from "../../pictures/lending-heart.png";
 import championLending from "../../pictures/lending-champion.png";
@@ -15,6 +20,14 @@ import greatLending from "../../pictures/lending-great.png";
 import doodleLending from "../../pictures/lending-doodle.png";
 
 function Lending() {
+  const isRoomExist = useSelector((state) => state.isRoomExist);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isRoomExist) {
+      dispatch(setIsRoomExist(false));
+      //leave functionsality
+    }
+  }, []);
   return (
     <>
       <div className="lending">

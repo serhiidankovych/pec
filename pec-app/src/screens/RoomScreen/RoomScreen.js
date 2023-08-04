@@ -16,7 +16,7 @@ const RoomScreen = () => {
   const userId = useSelector((state) => state.userId);
 
   const isFirstRender = useIsFirstRender();
-  const onlyAudio = true;
+  const onlyAudio = false;
 
   useEffect(() => {
     webRTCHandler.getLocalPreviewAndInitRoomConnection(

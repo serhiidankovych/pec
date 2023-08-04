@@ -19,9 +19,17 @@ app.get("/api/room-exists/:roomId", (req, res) => {
   const room = rooms.find((room) => room.id === roomId);
   if (room) {
     if (room.connectedUsers.length > 3) {
-      return res.json({ roomExists: true, full: true });
+      return res.json({
+        roomExists: true,
+        full: true,
+        roomType: room.roomType,
+      });
     } else {
-      return res.json({ roomExists: true, full: false });
+      return res.json({
+        roomExists: true,
+        full: false,
+        roomType: room.roomType,
+      });
     }
   } else {
     return res.json({ roomExists: false });
@@ -46,9 +54,16 @@ io.on("connection", (socket) => {
   socket.on("create-new-room", (data) => {
     createNewRoomHandler(data, socket, roomId);
   });
+  socket.on("create-new-only-room", (data) => {
+    createNewOnlyRoomHandler(data, socket, roomId);
+  });
 
   socket.on("join-room", (data) => {
     joinRoomHandler(data, socket);
+  });
+
+  socket.on("join-only-room", (data) => {
+    joinOnlyInRoomHandler(data, socket);
   });
 
   socket.on("conn-signal", (data) => {
@@ -60,6 +75,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
+    disconnectHandler(socket, roomId);
+  });
+  socket.on("leave", () => {
     disconnectHandler(socket, roomId);
   });
 
@@ -94,6 +112,7 @@ const createNewRoomHandler = (data, socket, roomId) => {
   const newRoom = {
     id: roomId,
     connectedUsers: [newUser],
+    roomType: "roomAudioVideo",
   };
 
   connectedUsers = [...connectedUsers, newUser];
@@ -118,10 +137,83 @@ const joinRoomHandler = (data, socket) => {
     // join room as user which just is trying to join room passing room id
     const room = rooms.find((room) => room.id === roomId);
     if (room) {
-      room.connectedUsers = [...room.connectedUsers, newUser];
+      if (room.roomType == "roomOnly") {
+        joinOnlyInRoomHandler(data, socket);
+      } else {
+        room.connectedUsers = [...room.connectedUsers, newUser];
 
+        socket.join(roomId);
+        console.log(`user (${userId}) joined room [${roomId}] \n`);
+        // add new user to connected users array
+        connectedUsers = [...connectedUsers, newUser];
+
+        // emit to all users which are already in this room to prepare peer connection
+        room.connectedUsers.forEach((user) => {
+          if (user.socketId !== socket.id) {
+            const data = {
+              connUserSocketId: socket.id,
+            };
+
+            io.to(user.socketId).emit("conn-prepare", data);
+          }
+        });
+
+        io.to(roomId).emit("room-update", {
+          connectedUsers: room.connectedUsers,
+        });
+      }
+    }
+  } else {
+    socket.emit("room-id", { roomId: "not-available" });
+  }
+};
+
+const createNewOnlyRoomHandler = (data, socket, roomId) => {
+  console.log("CREATE ONLY ROOM:");
+
+  const { identity } = data;
+  const userId = roomId;
+
+  console.log(`user (${userId}) created a new  only room\n`);
+
+  const newUser = {
+    identity,
+    id: uuidv4(),
+    socketId: socket.id,
+    roomId,
+    userId,
+  };
+
+  const newRoom = {
+    id: roomId,
+    connectedUsers: [newUser],
+    roomType: "roomOnly",
+  };
+
+  connectedUsers = [...connectedUsers, newUser];
+  rooms = [...rooms, newRoom];
+  socket.join(roomId);
+  socket.emit("room-update", { connectedUsers: newRoom.connectedUsers });
+};
+
+const joinOnlyInRoomHandler = (data, socket) => {
+  const { identity, roomId, userId } = data;
+  console.log("JOIN ONLY ROOM:");
+  if (roomId !== null) {
+    const newUser = {
+      identity,
+      id: uuidv4(),
+      socketId: socket.id,
+      roomId,
+      userId,
+    };
+
+    // join room as user which just is trying to join room passing room id
+    const room = rooms.find((room) => room.id === roomId);
+    if (room) {
+      room.connectedUsers = [...room.connectedUsers, newUser];
       socket.join(roomId);
-      console.log(`user (${userId}) joined room [${roomId}] \n`);
+      console.log(`user (${userId}) joined only room [${roomId}] \n`);
       // add new user to connected users array
       connectedUsers = [...connectedUsers, newUser];
 
@@ -131,8 +223,6 @@ const joinRoomHandler = (data, socket) => {
           const data = {
             connUserSocketId: socket.id,
           };
-
-          io.to(user.socketId).emit("conn-prepare", data);
         }
       });
 

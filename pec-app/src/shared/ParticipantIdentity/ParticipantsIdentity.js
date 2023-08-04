@@ -1,4 +1,5 @@
 import React from "react";
+import "./ParticipantsIdentity.css";
 import { useSelector } from "react-redux";
 import Avatar, { genConfig } from "react-nice-avatar";
 function ParticipantsIdentity() {
@@ -10,17 +11,17 @@ function ParticipantsIdentity() {
   }
 
   return (
-    <div>
-      {/* {participants.map((participant) => {
+    <div className="participants">
+      {participants.map((participant) => {
         const config = genConfig(participant.userId);
         console.log("PU ID: " + participant.userId);
         return (
-          <div>
+          <div key={config} className="participant-identity">
             <Avatar style={{ width: "2rem", height: "2rem" }} {...config} />
-            <div key={participants.userId}>{participant.identity}</div>
+            <div>{participant.identity}</div>
           </div>
         );
-      })} */}
+      })}
     </div>
   );
 }

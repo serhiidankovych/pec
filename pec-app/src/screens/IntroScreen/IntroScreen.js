@@ -7,17 +7,17 @@ import ExtraButton from "../../shared/ExtraButton/ExtraButton";
 import introScreenVideo from "../../pictures/intro-screen-video.png";
 import { PiXBold } from "react-icons/pi";
 
-const IntroScreen = ({ handlerisJoinRoomScreen, handlerisIntroScreen }) => {
+const IntroScreen = ({ handlerIsJoinRoomScreen, handlerisIntroScreen }) => {
   const dispatch = useDispatch();
 
   const joinMeetHandler = () => {
     dispatch(setIsRoomHost(false));
-    handlerisJoinRoomScreen();
+    handlerIsJoinRoomScreen();
     handlerisIntroScreen();
   };
   const hostMeetHandler = () => {
     dispatch(setIsRoomHost(true));
-    handlerisJoinRoomScreen();
+    handlerIsJoinRoomScreen();
     handlerisIntroScreen();
   };
 

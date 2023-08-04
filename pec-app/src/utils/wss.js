@@ -20,6 +20,7 @@ export const connectWithSocketIOServer = () => {
     console.log("Set all participants for current room");
   });
 
+  //WebRTC wss
   socket.on("conn-prepare", ({ connUserSocketId }) => {
     webRTCHandler.prepareNewPeerConnection(connUserSocketId, false);
     socket.emit("conn-init", { connUserSocketId: connUserSocketId });
@@ -39,7 +40,7 @@ export const connectWithSocketIOServer = () => {
   });
 };
 
-export const createNewRoom = (identity, onlyAudio = false) => {
+export const createNewRoom = (identity, onlyAudio) => {
   // emit an event to server that we would like to create new room
   const data = {
     identity,
@@ -49,13 +50,13 @@ export const createNewRoom = (identity, onlyAudio = false) => {
   socket.emit("create-new-room", data);
 };
 
-export const joinRoom = (identity, roomId, userId) => {
+export const joinRoom = (identity, roomId, userId, onlyAudio) => {
   //emit an event to server that we would to join a room
   const data = {
     roomId,
     identity,
     userId,
-    // onlyAudio,
+    onlyAudio,
   };
   console.log("Joined to the room");
   socket.emit("join-room", data);
@@ -63,4 +64,22 @@ export const joinRoom = (identity, roomId, userId) => {
 
 export const signalPeerData = (data) => {
   socket.emit("conn-signal", data);
+};
+
+export const createOnlyRoom = (identity) => {
+  // emit an event to server that we would like to create new room
+  const data = {
+    identity,
+  };
+  console.log("Created new room only");
+  socket.emit("create-new-only-room", data);
+};
+export const joinOnlyRoom = (identity, roomId, userId) => {
+  const data = {
+    roomId,
+    identity,
+    userId,
+  };
+  socket.emit("join-only-room", data);
+  console.log("Joined only room");
 };

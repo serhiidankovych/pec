@@ -1,6 +1,6 @@
 import * as wss from "./wss";
 import store from "../redux/store";
-import { setShowOverlay } from "../redux/actions";
+
 import Peer from "simple-peer";
 
 const videoConstraints = {
@@ -38,11 +38,9 @@ export const getLocalPreviewAndInitRoomConnection = async (
       localStream = stream;
       showLocalVideoPreview(localStream);
 
-      store.dispatch(setShowOverlay(false));
-
       isRoomHost
-        ? wss.createNewRoom(identity)
-        : wss.joinRoom(identity, roomId, userId);
+        ? wss.createNewRoom(identity, onlyAudio)
+        : wss.joinRoom(identity, roomId, userId, onlyAudio);
     })
     .catch((err) => {
       console.log(

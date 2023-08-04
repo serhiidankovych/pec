@@ -149,3 +149,6 @@
 .cancelButton:hover {
   background-color: #e5e5e5;
 }
+.audio-video-disabled {
+  width: 182px;
+}

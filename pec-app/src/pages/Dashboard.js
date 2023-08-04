@@ -13,6 +13,7 @@ import BackButton from "../shared/BackButton/BackButton";
 import IntroScreen from "../screens/IntroScreen/IntroScreen";
 import JoinRoomScreen from "../screens/JoinRoomScreen/JoinRoomScreen";
 import RoomScreen from "../screens/RoomScreen/RoomScreen";
+import OnlyRoomScreen from "../screens/OnlyRoomScreen/OnlyRoomScreen.js";
 import SoundsPanel from "../components/SoundsPanel/SoundsPanel.js";
 
 import soonCover from "../pictures/soon-cover.png";
@@ -27,6 +28,7 @@ function Dashboard() {
   const [isIntroScreen, setIsIntroScreen] = useState(false);
   const [isJoinRoomScreen, setIsJoinRoomScreen] = useState(false);
   const [isRoomScreen, setIsRoomScreen] = useState(false);
+  const [isRoomOnlyRoom, setIsOnlyRoomScreen] = useState(false);
   const [isSoundsPanel, setIsSoundsPanel] = useState(false);
 
   const roomId = useSelector((state) => state.roomId);
@@ -80,18 +82,19 @@ function Dashboard() {
       <div className="dashboard">
         {isIntroScreen && (
           <IntroScreen
-            handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+            handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
             handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
           />
         )}
         {isJoinRoomScreen && (
           <JoinRoomScreen
-            handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
-            handlerisRoomScreen={() => toggleState(setIsRoomScreen)}
+            handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+            handlerIsRoomScreen={() => toggleState(setIsRoomScreen)}
+            handleIsOnlyRoomScreen={() => toggleState(setIsOnlyRoomScreen)}
           />
         )}
         {isRoomScreen && <RoomScreen />}
-
+        {isRoomOnlyRoom && <OnlyRoomScreen />}
         <Header />
         <div className="dashboard-container">
           <Sidebar

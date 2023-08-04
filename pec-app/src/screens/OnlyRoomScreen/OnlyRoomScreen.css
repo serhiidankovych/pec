@@ -1,0 +1,49 @@
+.room-screen {
+  color: #000000;
+  position: absolute;
+  display: flex;
+  overflow: hidden;
+  min-width: 144px;
+  min-height: 1px;
+  padding: 16px;
+  background: #c0d1f2;
+  border-radius: 25px;
+  border: 3px solid #000;
+}
+
+.meet-id-container {
+  position: absolute;
+  z-index: 1;
+}
+
+.meet-id {
+  font-size: 14px;
+}
+
+.videos_container_styles {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+.video_track_container {
+  transform: scaleX(-1);
+  /* border: 3px solid #000;
+  border-radius: 25px; */
+}
+.video {
+  border-radius: 25px;
+}
+
+.drag-element {
+}
+
+.handle {
+  height: 46px;
+  background-color: #000000;
+  cursor: grab;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 25px;
+}

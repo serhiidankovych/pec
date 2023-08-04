@@ -4,10 +4,10 @@ const initState = {
   identity: "",
   isRoomHost: false,
   isRoomExist: false,
-  connectOnlyWithAudio: true,
+  connectOnlyWithAudio: false,
+  connectOnlyRoom: true,
   roomId: null,
   userId: null,
-  showOverlay: true,
   participants: [],
   messages: [],
   activeConversation: null,
@@ -32,6 +32,11 @@ const reducer = (state = initState, action) => {
         ...state,
         connectOnlyWithAudio: action.onlyWithAudio,
       };
+    case Actions.SET_CONNECT_ONLY_ROOM:
+      return {
+        ...state,
+        connectOnlyRoom: action.connectOnlyRoom,
+      };
     case Actions.SET_ROOM_ID:
       return {
         ...state,
@@ -46,11 +51,6 @@ const reducer = (state = initState, action) => {
       return {
         ...state,
         identity: action.identity,
-      };
-    case Actions.SET_SHOW_OVERLAY:
-      return {
-        ...state,
-        showOverlay: action.showOverlay,
       };
     case Actions.SET_PARTICIPANTS:
       return {
