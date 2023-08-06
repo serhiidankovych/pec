@@ -99,6 +99,7 @@ function Dashboard() {
         <div className="dashboard-container">
           <Sidebar
             handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
+            handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
             handleCopyClick={handleCopyClick}
             isRoomExist={isRoomExist}
             handlerisSoundsPanel={() => toggleState(setIsSoundsPanel)}
@@ -150,17 +151,46 @@ function Dashboard() {
                       : handleRoomIsNotCreated();
                   }}
                 />
+                <AppCard
+                  appImage={soonCover}
+                  title="Lyrics remover"
+                  defenition="exercise with your favorite songs"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
+                <AppCard
+                  appImage={soonCover}
+                  title="Lyrics remover"
+                  defenition="exercise with your favorite songs"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
+                <AppCard
+                  appImage={soonCover}
+                  title="Lyrics remover"
+                  defenition="exercise with your favorite songs"
+                  func={(event) => {
+                    isRoomExist
+                      ? handleSwitchMiniApps(event, "Whiteboard")
+                      : handleRoomIsNotCreated();
+                  }}
+                />
               </div>
             </div>
           )}
         </div>
-        {isSoundsPanel && (
-          <SoundsPanel
-            setIsSoundsPanel={setIsSoundsPanel}
-            socket={socket}
-            roomId={roomId}
-          />
-        )}
+        <SoundsPanel
+          setIsSoundsPanel={setIsSoundsPanel}
+          socket={socket}
+          roomId={roomId}
+          isSoundsPanel={isSoundsPanel}
+        />
       </div>
     </>
   );

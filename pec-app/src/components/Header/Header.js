@@ -11,7 +11,6 @@ function Header() {
     <div className="header">
       <div className="logo">
         <ButtonBox title="pec" color="#4F75FB" />
-        <div>PEC</div>
       </div>
       <RoomId userId={userId} />
     </div>

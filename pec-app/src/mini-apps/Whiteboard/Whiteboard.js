@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import { v4 as uuid } from "uuid";
 import "./Whiteboard.css";
-import RoomId from "../../shared/RoomId/RoomId";
+import ExtraButton from "../../shared/ExtraButton/ExtraButton";
 
 const Whiteboard = ({ socket, roomId }) => {
   useEffect(() => {
@@ -80,6 +79,13 @@ const Whiteboard = ({ socket, roomId }) => {
     setColor(event.target.value);
   };
 
+  const saveImageToLocal = (event) => {
+    let link = event.currentTarget;
+    link.setAttribute("download", "canvas.png");
+    let image = canvasRef.current.toDataURL("image/png");
+    link.setAttribute("href", image);
+  };
+
   return (
     <div className="whiteboard">
       <div className="whiteboard-panel">
@@ -89,6 +95,13 @@ const Whiteboard = ({ socket, roomId }) => {
           value={color}
           onChange={handleColorChange}
         />
+        <a
+          id="download_image_link"
+          href="download_link"
+          onClick={saveImageToLocal}
+        >
+          Download
+        </a>
       </div>
 
       <canvas

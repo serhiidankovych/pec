@@ -17,8 +17,8 @@
   gap: 7px;
   margin-top: 16px;
 }
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .sidebar {
     display: none;
   }
-}
+} */

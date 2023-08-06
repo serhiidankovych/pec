@@ -9,3 +9,9 @@
   align-items: center;
   justify-content: center;
 }
+.button-box-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+}

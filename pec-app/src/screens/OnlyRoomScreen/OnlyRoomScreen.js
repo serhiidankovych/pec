@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Draggable from "react-draggable";
 import "./OnlyRoomScreen.css";
 import ParticipantsIdentity from "../../shared/ParticipantIdentity/ParticipantsIdentity";
@@ -11,6 +11,7 @@ function OnlyRoomScreen() {
   const roomId = useSelector((state) => state.roomId);
   const identity = useSelector((state) => state.identity);
   const userId = useSelector((state) => state.userId);
+  const participants = useSelector((state) => state.participants);
 
   useEffect(() => {
     if (isRoomHost) {
@@ -27,7 +28,7 @@ function OnlyRoomScreen() {
       <div className="drag-element">
         <div className="room-screen">
           {handle}
-          <ParticipantsIdentity />
+          <ParticipantsIdentity participants={participants} />
         </div>
       </div>
     </Draggable>

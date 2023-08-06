@@ -83,3 +83,6 @@ export const joinOnlyRoom = (identity, roomId, userId) => {
   socket.emit("join-only-room", data);
   console.log("Joined only room");
 };
+export const newRoomId = () => {
+  socket.emit("new-room-id");
+};

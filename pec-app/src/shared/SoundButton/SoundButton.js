@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./SoundButtom.css";
+import "./SoundButton.css";
 
 import { motion } from "framer-motion";
 

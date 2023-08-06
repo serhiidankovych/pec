@@ -6,12 +6,13 @@ import "./RoomButtonsPanel.css";
 import ScreenShareButton from "../RoomButtons/ScreenShareButton";
 import HideButton from "../RoomButtons/HideButton";
 
-const RoomButtonPanel = () => {
+const RoomButtonPanel = ({ handleParticipantsPanel }) => {
   const [isPanelDisplayed, setIsPanelDisplayed] = React.useState(false);
 
   const handlePanelDisplayeds = () => {
     setIsPanelDisplayed((prev) => !prev);
   };
+
   return (
     <div className={"mainContainer"}>
       <div className={"btnsContainer"}>
@@ -21,6 +22,7 @@ const RoomButtonPanel = () => {
             <CameraButton />
             <ScreenShareButton />
             <LeaveButton />
+            <button onClick={() => handleParticipantsPanel()}>Pat</button>
           </>
         )}
         <HideButton

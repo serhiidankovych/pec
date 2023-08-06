@@ -44,12 +44,17 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-  const roomId = uuidv4();
+  let roomId = uuidv4();
 
   console.log("CONNECTION:");
   console.log(`user (${roomId}) is connected  \n`);
 
   socket.emit("room-id", { roomId });
+
+  socket.on("new-room-id", () => {
+    roomId = uuidv4();
+    socket.emit("room-id", { roomId });
+  });
 
   socket.on("create-new-room", (data) => {
     createNewRoomHandler(data, socket, roomId);

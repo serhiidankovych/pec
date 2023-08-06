@@ -8,12 +8,18 @@ import { useIsFirstRender } from "../../hooks/useIsFirstRender";
 import ParticipantsIdentity from "../../shared/ParticipantIdentity/ParticipantsIdentity";
 const RoomScreen = () => {
   const position = { x: 100, y: 100 };
-  const [openSidePanel, setOpenSidePanel] = useState(false);
+
+  const [isParticipantsPanelOpen, setIsParticipantsPanelOpen] = useState(false);
 
   const isRoomHost = useSelector((state) => state.isRoomHost);
   const roomId = useSelector((state) => state.roomId);
   const identity = useSelector((state) => state.identity);
   const userId = useSelector((state) => state.userId);
+  const participants = useSelector((state) => state.participants);
+
+  const handleParticipantsPanel = () => {
+    setIsParticipantsPanelOpen((prev) => !prev);
+  };
 
   const isFirstRender = useIsFirstRender();
   const onlyAudio = false;
@@ -51,8 +57,10 @@ const RoomScreen = () => {
         <div className="room-screen">
           {handle}
           <div className="video" id="videos_container"></div>
-          <RoomButtonPanel />
-          <ParticipantsIdentity />
+          <RoomButtonPanel handleParticipantsPanel={handleParticipantsPanel} />
+          {isParticipantsPanelOpen && (
+            <ParticipantsIdentity participants={participants} />
+          )}
         </div>
       </div>
     </Draggable>

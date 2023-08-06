@@ -16,6 +16,9 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: flex-start;
+  background-color: #131f4b;
+  border-radius: 25px;
+  padding: 16px;
 }
 .dashboard-title {
   color: white;
