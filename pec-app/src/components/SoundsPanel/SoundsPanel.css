@@ -1,12 +1,12 @@
 .sounds-panel {
-  background-color: #4f75fb;
+  background-color: rgb(13, 253, 167);
   padding: 20px;
   border-radius: 25px;
   position: fixed;
   left: 0;
   bottom: 0;
   display: flex;
-  margin-left: 95px;
+
   border: 3px solid #000;
   flex-direction: column;
   justify-content: center;

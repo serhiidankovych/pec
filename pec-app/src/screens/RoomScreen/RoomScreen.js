@@ -22,19 +22,16 @@ const RoomScreen = () => {
   };
 
   const isFirstRender = useIsFirstRender();
-  const onlyAudio = false;
+  const onlyAudio = true;
 
   useEffect(() => {
     webRTCHandler.getLocalPreviewAndInitRoomConnection(
       isRoomHost,
       identity,
       roomId,
-      userId,
-      onlyAudio
+      userId
     );
     console.log("getLocalPreviewAndInitRoomConnection in RoomScreen");
-    console.log(userId);
-    console.log("___________________");
   }, []);
 
   useEffect(() => {
@@ -45,10 +42,6 @@ const RoomScreen = () => {
       }
     }
   }, [roomId]);
-
-  const mainPanelVariants = {};
-
-  const sideBarVariants = {};
 
   const handle = <div className="handle"></div>;
   return (

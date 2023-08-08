@@ -11,6 +11,7 @@
   align-content: center;
   font-size: 12px;
   gap: 8px;
+  border: 3px solid #000;
 }
 .sound-image {
   width: 42px;

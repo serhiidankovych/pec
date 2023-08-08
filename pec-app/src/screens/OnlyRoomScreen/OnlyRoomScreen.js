@@ -21,7 +21,7 @@ function OnlyRoomScreen() {
     }
     console.log("ONly room sreen");
   }, []);
-  const position = { x: 100, y: 100 };
+  const position = { x: 500, y: 0 };
   const handle = <div className="handle"></div>;
   return (
     <Draggable handle=".handle" defaultPosition={position}>

@@ -23,7 +23,7 @@
 .join-content {
   display: flex;
   flex-direction: row;
-  border-radius: 25px;
+  border-radius: 15px;
   border: 3px solid #000;
   padding: 8px;
 }
@@ -76,35 +76,26 @@
   align-items: center;
   justify-content: flex-start;
   position: relative;
+  color: #000000;
 }
 
 .audioOnlyCheck label {
   font-size: 12px;
   margin-left: 8px;
-  color: rgb(189, 189, 189);
 }
 
 .audioOnlyCheck input {
   height: 14px;
   width: 14px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  border: 1.5px solid var(--fore-color);
+
   border-radius: 4px;
   outline: none;
   transition-duration: 0.3s;
-  background-color: var(--secondary-bg-color);
+
   cursor: pointer;
 }
 
-.errMsgContainer {
-  margin-top: 16px;
-}
-
 .errMsgContainer .errMsg {
-  color: var(--warning-color);
   font-size: 13px;
 }
 
@@ -151,4 +142,19 @@
 }
 .audio-video-disabled {
   width: 182px;
+}
+
+.join-continue {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.join-continue-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.contentPanel {
+  max-width: 184px;
 }

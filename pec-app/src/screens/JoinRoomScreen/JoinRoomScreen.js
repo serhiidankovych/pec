@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./JoinRoomScreen.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,6 +7,7 @@ import {
   setIsRoomHost,
   setIsRoomExist,
   setRoomId,
+  setConnectOnlyRoom,
 } from "../../redux/actions";
 import { getRoomExists } from "../../api";
 import joinScreenVideo from "../../pictures/join-screen-video.png";
@@ -27,10 +28,10 @@ const JoinRoomScreen = ({
 }) => {
   const dispatch = useDispatch();
   const isRoomHost = useSelector((state) => state.isRoomHost);
-  const connectOnlyRoom = useSelector((state) => state.connectOnlyRoom);
   const connectOnlyWithAudio = useSelector(
     (state) => state.connectOnlyWithAudio
   );
+  const connectOnlyRoom = useSelector((state) => state.connectOnlyRoom);
 
   const [name, setName] = useState("");
   const [roomId, setRoomID] = useState("");
@@ -42,13 +43,30 @@ const JoinRoomScreen = ({
     dictionaries: [adjectives, animals],
   });
 
-  const handleAudioOnly = (e) => {
-    dispatch(setConnectOnlyWithAudio(true));
+  const handleAudioOnly = () => {
+    dispatch(setConnectOnlyWithAudio(!connectOnlyWithAudio));
+  };
+  const handleOnlyRoom = () => {
+    dispatch(setConnectOnlyRoom(!connectOnlyRoom));
   };
 
   const handleJoinRoom = () => {
-    const identity = name.length > 0 ? name : randomName;
+    let identity = name;
+
+    if (name.length > 0) {
+      if (name.length > 15) {
+        showToast("⚠️", "Name is too long");
+        setErrorMsg("⚠️ Name is too long, up to 15 characters.");
+        return; // Exit early if name is too long
+      }
+    } else {
+      showToast("We generate a name for you:", randomName);
+      identity = randomName;
+      setName(identity);
+    }
+
     dispatch(setIdentity(identity));
+
     if (isRoomHost) {
       createRoom();
     } else {
@@ -56,99 +74,85 @@ const JoinRoomScreen = ({
     }
   };
 
-  const handleJoinOnlyRoom = () => {
-    const identity = name.length > 0 ? name : randomName;
-    dispatch(setIdentity(identity));
-    if (isRoomHost) {
-      createOnlyRoom();
+  const handleContinueJoin = () => {
+    dispatch(setRoomId(roomId));
+    handlerIsJoinRoomScreen();
+
+    if (!connectOnlyRoom) {
+      handleIsOnlyRoomScreen();
     } else {
-      joinOnlyRoom();
+      handlerIsRoomScreen();
     }
+
+    dispatch(setIsRoomExist(true));
   };
 
   const joinRoom = async () => {
     if (roomId.length === 0) {
-      showToast("Room ID is missed", "");
-    } else {
-      try {
-        const { data } = await getRoomExists(roomId);
-        const { roomExists, full, roomType } = data;
-        if (roomType === "roomOnly") {
-          showToast("Host created room without video and audio", "");
-          setIsContinue(true);
-          setIsHandleJoinRoom(false);
-        } else {
-          if (roomExists) {
-            if (full) {
-              showToast("Meeting is full! Please try again later.", "");
-              setErrorMsg("Meeting is full! Please try again later.");
-            } else {
-              // join a room
-              dispatch(setRoomId(roomId));
-              handlerIsJoinRoomScreen();
-              handlerIsRoomScreen();
-              dispatch(setIsRoomExist(true));
-            }
-          } else {
-            showToast("Meeting not found! Please check your meeting id", "");
-            setErrorMsg("Meeting not found! Please check your meeting id");
-          }
-        }
-      } catch (error) {
-        console.log("Error: ", error);
-        showToast("Error: ", error.message);
-        setErrorMsg(error.message);
-      }
+      showToast("Room ID is missing", "");
+      return;
     }
-  };
 
-  const joinOnlyRoom = async () => {
-    if (roomId.length === 0) {
-      showToast("Room ID is missed", "");
-    } else {
-      try {
-        const { data } = await getRoomExists(roomId);
-        const { roomExists, full, roomType } = data;
-        if (roomType === "roomAudioVideo") {
-          showToast("Host created room with video and audio", "");
-          setIsContinue(true);
-          setIsHandleJoinRoom(false);
-        } else {
-          if (roomExists) {
-            if (full) {
-              showToast("Meeting is full! Please try again later.", "");
-              setErrorMsg("Meeting is full! Please try again later.");
-            } else {
-              // join a room
-              dispatch(setRoomId(roomId));
-              handlerIsJoinRoomScreen();
-              handleIsOnlyRoomScreen();
-              dispatch(setIsRoomExist(true));
-            }
+    if (roomId.length < 36) {
+      showToast("Room ID has invalid format", "");
+      return;
+    }
+
+    try {
+      const { data } = await getRoomExists(roomId);
+      const { roomExists, full, roomType } = data;
+
+      if (
+        (roomType === "roomOnly" && !connectOnlyRoom) ||
+        (roomType === "roomAudioVideo" && connectOnlyRoom)
+      ) {
+        showToast(
+          "⚠️",
+          `Host created room ${
+            connectOnlyRoom ? "with" : "without"
+          } video and audio`
+        );
+        setErrorMsg(
+          `⚠️ Host created room ${connectOnlyRoom ? "with" : "without"} video`
+        );
+        setIsContinue(true);
+      } else {
+        if (roomExists) {
+          if (full) {
+            showToast("⚠️", "Meeting is full!");
+            setErrorMsg("⚠️ Meeting is full! Please try again later.");
           } else {
-            showToast("Meeting not found! Please check your meeting id", "");
-            setErrorMsg("Meeting not found! Please check your meeting id");
+            dispatch(setRoomId(roomId));
+            handlerIsJoinRoomScreen();
+
+            if (connectOnlyRoom) {
+              handleIsOnlyRoomScreen();
+            } else {
+              handlerIsRoomScreen();
+            }
+
+            dispatch(setIsRoomExist(true));
           }
+        } else {
+          showToast("⚠️", "Meeting not found!");
+          setErrorMsg("⚠️ Meeting not found! Please check your meeting ID.");
         }
-      } catch (error) {
-        console.log("Error: ", error);
-        showToast("Error: ", error.message);
-        setErrorMsg(error.message);
       }
+    } catch (error) {
+      console.log("Error: ", error);
+      showToast("Error: ", error.message);
+      setErrorMsg(error.message);
     }
   };
 
   const createRoom = () => {
     console.log("Room created");
     handlerIsJoinRoomScreen();
-    handlerIsRoomScreen();
-    dispatch(setIsRoomExist(true));
-  };
-
-  const createOnlyRoom = () => {
-    console.log("Room only created");
-    handlerIsJoinRoomScreen();
-    handleIsOnlyRoomScreen();
+    if (connectOnlyRoom) {
+      handleIsOnlyRoomScreen();
+    } else {
+      handlerIsRoomScreen();
+    }
     dispatch(setIsRoomExist(true));
   };
 
@@ -202,39 +206,50 @@ const JoinRoomScreen = ({
                       onChange={(e) => setRoomID(e.target.value)}
                     />
                   )}
-                  {connectOnlyRoom ? (
-                    <div className="audio-video-disabled">
-                      ⚠️ You will join without video and audio
-                    </div>
-                  ) : (
-                    <div className="audioOnlyCheck">
-                      <input
-                        type="checkbox"
-                        name="audioOnly"
-                        checked={connectOnlyWithAudio}
-                        onChange={handleAudioOnly}
-                      />
-                      <label htmlFor="audioOnly">Join with audio only</label>
+                  {!isContinue && (
+                    <div>
+                      <div className="audioOnlyCheck">
+                        <input
+                          type="checkbox"
+                          name="audioOnly"
+                          checked={connectOnlyWithAudio}
+                          onChange={handleAudioOnly}
+                        />
+                        <label htmlFor="audioOnly">join with audio only</label>
+                      </div>
+                      <div className="audioOnlyCheck">
+                        <input
+                          type="checkbox"
+                          name="roomOnly"
+                          checked={connectOnlyRoom}
+                          onChange={handleOnlyRoom}
+                        />
+                        <label htmlFor="roomOnly">
+                          join without audio and video
+                        </label>
+                      </div>
                     </div>
                   )}
+
                   <div className="errMsgContainer">
                     {errorMsg !== "" && <p className="errMsg">{errorMsg}</p>}
                   </div>
                   {isContinue ? (
-                    <div>
-                      <ExtraButton
-                        title="No"
-                        func={handleCloseHostOrCreateRoom}
-                      />
-                      <ExtraButton
-                        title="Yes"
-                        func={
-                          isHandleJoinRoom ? handleJoinRoom : handleJoinOnlyRoom
-                        }
-                      />
+                    <div className="join-continue">
+                      <div>Do you want to join?</div>
+                      <div className="join-continue-buttons">
+                        <ExtraButton
+                          title="No"
+                          func={handleCloseHostOrCreateRoom}
+                          style={{ width: "87px" }}
+                        />
+                        <ExtraButton
+                          title="Yes "
+                          func={handleContinueJoin}
+                          style={{ width: "87px" }}
+                        />
+                      </div>
                     </div>
-                  ) : connectOnlyRoom ? (
-                    <ExtraButton title="Join D" func={handleJoinOnlyRoom} />
                   ) : (
                     <ExtraButton title=" Join " func={handleJoinRoom} />
                   )}

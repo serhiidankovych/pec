@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../RoomButtonsPanel/RoomButtonsPanel.css";
+import { useSelector } from "react-redux";
 import { toggleCamera } from "../../utils/webRTCHandler";
 import { PiVideoCameraBold, PiVideoCameraSlashBold } from "react-icons/pi";
 const CameraButton = () => {
-  const [isCameraOff, setIsCameraOff] = useState(false);
+  const connectOnlyWithAudio = useSelector(
+    (state) => state.connectOnlyWithAudio
+  );
+  const [isCameraOff, setIsCameraOff] = useState(connectOnlyWithAudio);
+
+  // useEffect(() => {
+  //   if (connectOnlyWithAudio) {
+  //     toggleCamera(true);
+  //   }
+  // }, []);
 
   const handleCameraBntPress = () => {
     toggleCamera(isCameraOff);

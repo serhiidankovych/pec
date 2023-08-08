@@ -1,6 +1,4 @@
 import * as wss from "./wss";
-import store from "../redux/store";
-
 import Peer from "simple-peer";
 
 const videoConstraints = {
@@ -13,21 +11,23 @@ const videoConstraints = {
 
 const onlyAudioConstraints = {
   audio: true,
-  video: false,
+  video: {
+    width: "280",
+    height: "160",
+  },
 };
 
 let localStream;
 
-export const getLocalPreviewAndInitRoomConnection = async (
+export const getLocalPreviewAndInitRoomConnection = (
   isRoomHost,
   identity,
   roomId,
   userId,
-  onlyAudio
+  onlyAudio = true
 ) => {
   console.log("WEBRTC HANDLER IN");
   console.log(`${isRoomHost} ${identity} ${roomId}`);
-  //await fetchTURNCredentials();
 
   const constraints = onlyAudio ? onlyAudioConstraints : videoConstraints;
 
@@ -35,6 +35,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
     .getUserMedia(constraints)
     .then((stream) => {
       console.log("successfuly received local stream");
+
       localStream = stream;
       showLocalVideoPreview(localStream);
 
@@ -175,8 +176,15 @@ export const toggleMic = (isMuted) => {
   localStream.getAudioTracks()[0].enabled = isMuted ? true : false;
 };
 
+// export const toggleCamera = (isDisabled) => {
+//   localStream.getVideoTracks()[0].enabled = isDisabled;
+// };
 export const toggleCamera = (isDisabled) => {
-  localStream.getVideoTracks()[0].enabled = isDisabled;
+  if (localStream) {
+    localStream.getVideoTracks().forEach((track) => {
+      track.enabled = !isDisabled;
+    });
+  }
 };
 
 export const toggleScreenShare = (

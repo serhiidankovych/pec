@@ -1,9 +1,11 @@
 import React from "react";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
-import { setConnectOnlyRoom, setUserId } from "../../redux/actions";
+import { setConnectOnlyRoom, setIsRoomHost } from "../../redux/actions";
 import { newRoomId } from "../../utils/wss";
 import ButtonBox from "../../shared/ButtonBox/ButtonBox";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   PiUserBold,
   PiUserFill,
@@ -22,19 +24,33 @@ function Sidebar({
   isRoomExist,
   handlerisSoundsPanel,
   handlerisJoinRoomScreen,
+  handlerisRoomScreen,
 }) {
   const dispatch = useDispatch();
+
   const handleJoin = () => {
     handlerisJoinRoomScreen();
   };
-  const handleOnlyRoom = () => {
-    dispatch(setConnectOnlyRoom(true));
-    handlerisIntroScreen();
-  };
-  const handleRoom = () => {
+  const handleCreate = () => {
+    dispatch(setIsRoomHost(true));
     dispatch(setConnectOnlyRoom(false));
-    handlerisIntroScreen();
+    handlerisJoinRoomScreen();
   };
+
+  const showToast = (title, text) => {
+    toast(`${title} ${text}`, {
+      position: toast.POSITION.BOTTOM_LEFT,
+      autoClose: 1000,
+    });
+  };
+  // const handleOnlyRoom = () => {
+  //   dispatch(setConnectOnlyRoom(true));
+  //   handlerisIntroScreen();
+  // };
+  // const handleRoom = () => {
+  //   dispatch(setConnectOnlyRoom(false));
+  //   handlerisIntroScreen();
+  // };
   const handleUserId = () => {
     newRoomId();
   };
@@ -48,14 +64,16 @@ function Sidebar({
           func={handleUserId}
           disabled={isRoomExist}
           title="generate a new id"
+          showToast={showToast}
         />
         <ButtonBox
           defaultButton={<PiUsersBold />}
           focusButton={<PiUsersFill />}
           color="#FBEC4F"
-          func={handleOnlyRoom}
+          func={handleCreate}
           disabled={isRoomExist}
           title="create room"
+          showToast={showToast}
         />
         <ButtonBox
           defaultButton={<PiVideoCameraBold />}
@@ -64,6 +82,7 @@ function Sidebar({
           func={handleJoin}
           disabled={isRoomExist}
           title="join room"
+          showToast={showToast}
         />
         <ButtonBox
           defaultButton={<PiLinkBold />}
@@ -71,6 +90,7 @@ function Sidebar({
           color="#FBEC4F"
           func={handleCopyClick}
           title="copy id"
+          showToast={showToast}
         />
         <ButtonBox
           defaultButton={<PiMusicNotesBold />}
@@ -78,8 +98,11 @@ function Sidebar({
           color="#FBEC4F"
           func={handlerisSoundsPanel}
           title="soundboard"
+          showToast={showToast}
         />
+        <div className="sidebar-footer"></div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

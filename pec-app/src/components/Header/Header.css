@@ -10,9 +10,14 @@
   justify-content: space-between;
   flex-direction: row;
 }
+.header-logo {
+  width: 69px;
+  height: auto;
+  margin-left: 24px;
+}
 .logo {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin-left: 9px;
+  gap: 8px;
+  font-size: 25px;
 }

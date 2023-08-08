@@ -10,12 +10,23 @@
   padding: 8px;
   /* position: fixed; */
   /* margin-top: 93px; */
+  min-width: 208px;
 }
 .sidebar-container {
   display: flex;
   flex-direction: column;
   gap: 7px;
   margin-top: 16px;
+}
+.sidebar-footer {
+  /* background-color: #131f4b;
+  border-radius: 25px;
+  min-height: 212px; */
+  min-height: 212px;
+  border-radius: 15px;
+  background-color: rgb(232, 238, 251);
+  color: rgb(0, 0, 0);
+  border: 2.4px solid rgb(177, 193, 224);
 }
 /* @media (max-width: 900px) {
   .sidebar {

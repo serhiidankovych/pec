@@ -8,29 +8,37 @@ function ButtonBox({
   func,
   disabled,
   title,
+  showToast,
 }) {
   const [isHovered, setHovered] = React.useState(false);
+
+  const handleFunc = () => {
+    if (disabled) {
+      showToast("You can not", title + " while existing room");
+    } else {
+      func();
+    }
+  };
 
   return (
     <motion.div
       className="button-box-title"
+      initial={{ padding: "8px", borderRadius: "15px" }}
       whileTap={{ borderRadius: "70px" }}
-      onClick={() => func()}
-      // whileHover={{
-      //   borderRadius: "25px",
-      //   backgroundColor: "rgb(232, 238, 251)",
-      //   color: "#000000",
-      //   border: "3px solid #b1c1e0",
-      // }}
+      onClick={handleFunc}
+      disabled={disabled}
+      whileHover={{
+        borderRadius: "25px",
+        backgroundColor: "#fbec4f",
+        color: "#000000",
+        border: "3px solid #b1c1e0",
+        padding: "8px",
+      }}
+      animate={isHovered ? "hover" : "initial"}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <div
-        disabled={disabled}
-        className="button-box"
-        style={{ backgroundColor: color }}
-        animate={isHovered ? "hover" : "initial"}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
+      <div className="button-box" style={{ backgroundColor: color }}>
         {isHovered ? focusButton : defaultButton}
       </div>
       <div>{title}</div>

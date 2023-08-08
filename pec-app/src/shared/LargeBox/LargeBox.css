@@ -4,7 +4,7 @@
   grid-row-start: 1;
   grid-row-end: 5;
   border-radius: 25px; */
-  background: linear-gradient(133deg, #c0d1f2 0%, #85a7ea 100%);
+  /* background: linear-gradient(133deg, #c0d1f2 0%, #85a7ea 100%); */
   border-radius: 25px;
   height: 327px;
   display: flex;
@@ -14,8 +14,20 @@
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  background-image: linear-gradient(
+    180deg,
+    hsl(220deg 66% 85%) 0%,
+    hsl(215deg 71% 84%) 11%,
+    hsl(211deg 76% 84%) 22%,
+    hsl(208deg 79% 83%) 33%,
+    hsl(205deg 81% 81%) 44%,
+    hsl(202deg 81% 80%) 56%,
+    hsl(199deg 81% 79%) 67%,
+    hsl(196deg 80% 78%) 78%,
+    hsl(194deg 78% 76%) 89%,
+    hsl(191deg 75% 75%) 100%
+  );
 }
 
 .lending-main-title {

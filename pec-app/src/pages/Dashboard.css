@@ -16,12 +16,25 @@
   flex-wrap: wrap;
   gap: 16px;
   justify-content: flex-start;
-  background-color: #131f4b;
+
   border-radius: 25px;
   padding: 16px;
+  background-image: linear-gradient(
+    134deg,
+    hsl(220deg 66% 85%) 0%,
+    hsl(215deg 71% 84%) 11%,
+    hsl(211deg 76% 84%) 22%,
+    hsl(208deg 79% 83%) 33%,
+    hsl(205deg 81% 81%) 44%,
+    hsl(202deg 81% 80%) 56%,
+    hsl(199deg 81% 79%) 67%,
+    hsl(196deg 80% 78%) 78%,
+    hsl(194deg 78% 76%) 89%,
+    hsl(191deg 75% 75%) 100%
+  );
 }
 .dashboard-title {
-  color: white;
+  color: black;
 
   margin: 0;
 }
@@ -31,7 +44,9 @@
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  margin-left: 48px;
 }
+
 .dashboard-title-image {
   width: auto;
   height: 51px;
@@ -50,8 +65,7 @@
 }
 .dashboard-apps {
   display: flex;
-  align-items: stretch;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 16px;
   flex-direction: row;
   flex-wrap: wrap;

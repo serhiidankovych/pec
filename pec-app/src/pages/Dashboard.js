@@ -7,6 +7,7 @@ import "./Dashboard.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import Sidebar from "../components/Sidebar/Sidebar";
 import AppCard from "../shared/AppCard/AppCard";
 import BackButton from "../shared/BackButton/BackButton";
@@ -78,32 +79,32 @@ function Dashboard() {
 
   return (
     <>
-      <ToastContainer />
       <div className="dashboard">
-        {isIntroScreen && (
-          <IntroScreen
-            handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
-            handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
-          />
-        )}
-        {isJoinRoomScreen && (
-          <JoinRoomScreen
-            handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
-            handlerIsRoomScreen={() => toggleState(setIsRoomScreen)}
-            handleIsOnlyRoomScreen={() => toggleState(setIsOnlyRoomScreen)}
-          />
-        )}
-        {isRoomScreen && <RoomScreen />}
-        {isRoomOnlyRoom && <OnlyRoomScreen />}
         <Header />
         <div className="dashboard-container">
           <Sidebar
             handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
             handlerisJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+            handlerisRoomScreen={() => toggleState(setIsRoomScreen)}
             handleCopyClick={handleCopyClick}
             isRoomExist={isRoomExist}
             handlerisSoundsPanel={() => toggleState(setIsSoundsPanel)}
           />
+          {isIntroScreen && (
+            <IntroScreen
+              handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+              handlerisIntroScreen={() => toggleState(setIsIntroScreen)}
+            />
+          )}
+          {isJoinRoomScreen && (
+            <JoinRoomScreen
+              handlerIsJoinRoomScreen={() => toggleState(setIsJoinRoomScreen)}
+              handlerIsRoomScreen={() => toggleState(setIsRoomScreen)}
+              handleIsOnlyRoomScreen={() => toggleState(setIsOnlyRoomScreen)}
+            />
+          )}
+          {isRoomScreen && <RoomScreen />}
+          {isRoomOnlyRoom && <OnlyRoomScreen />}
           {isMiniApps ? (
             <div className="mini-app-and-back-button">
               <BackButton func={handleReturnToDashboard} />
@@ -134,7 +135,7 @@ function Dashboard() {
                 <AppCard
                   appImage={soonCover}
                   title="Explain & Draw"
-                  defenition="find out how good you could explain image to your friends"
+                  defenition="find out how good you could explain image "
                   func={(event) => {
                     isRoomExist
                       ? handleSwitchMiniApps(event, "Whiteboard")
@@ -191,7 +192,10 @@ function Dashboard() {
           roomId={roomId}
           isSoundsPanel={isSoundsPanel}
         />
+        <Footer />
       </div>
+
+      <ToastContainer />
     </>
   );
 }

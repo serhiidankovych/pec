@@ -1,22 +1,23 @@
 .app-card {
-  background: #fbec4f;
+  /* background: #2ed9ff; */
+  background-color: rgb(251, 236, 79);
   border-radius: 25px;
   display: flex;
   flex-direction: column;
   padding: 16px;
   align-items: stretch;
   gap: 8px;
-  width: 368px;
+  width: 338px;
+  border: 3px solid #000;
 }
 .app-image {
   width: 100%;
-  height: 190px;
-  border-radius: 25px;
+  height: 174px;
+  border-radius: 15px;
   border: 3px solid #000;
   object-fit: cover;
 }
-.title-and-defenition {
-}
+
 .title {
   font-size: 22px;
 }
