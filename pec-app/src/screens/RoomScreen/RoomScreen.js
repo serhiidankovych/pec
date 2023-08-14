@@ -16,22 +16,16 @@ const RoomScreen = () => {
   const identity = useSelector((state) => state.identity);
   const userId = useSelector((state) => state.userId);
   const participants = useSelector((state) => state.participants);
+  const onlyAudio = useSelector((state) => state.connectOnlyWithAudio);
 
   const handleParticipantsPanel = () => {
     setIsParticipantsPanelOpen((prev) => !prev);
   };
 
   const isFirstRender = useIsFirstRender();
-  const onlyAudio = true;
 
   useEffect(() => {
-    webRTCHandler.getLocalPreviewAndInitRoomConnection(
-      isRoomHost,
-      identity,
-      roomId,
-      userId
-    );
-    console.log("getLocalPreviewAndInitRoomConnection in RoomScreen");
+    webRTCHandler.roomHandler(isRoomHost, identity, roomId, userId, onlyAudio);
   }, []);
 
   useEffect(() => {
@@ -50,7 +44,10 @@ const RoomScreen = () => {
         <div className="room-screen">
           {handle}
           <div className="video" id="videos_container"></div>
-          <RoomButtonPanel handleParticipantsPanel={handleParticipantsPanel} />
+          <RoomButtonPanel
+            handleParticipantsPanel={handleParticipantsPanel}
+            roomId={roomId}
+          />
           {isParticipantsPanelOpen && (
             <ParticipantsIdentity participants={participants} />
           )}

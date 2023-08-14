@@ -12,7 +12,6 @@ function RoomId({ userId }) {
   }
 
   const config = genConfig(userId);
-  console.log("Roomid:" + userId);
   return (
     <div className="header-room-id">
       Co-learn ID:

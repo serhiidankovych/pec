@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./JoinRoomScreen.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,6 +20,7 @@ import {
 } from "unique-names-generator";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import * as webRTCHandler from "../../utils/webRTCHandler";
 
 const JoinRoomScreen = ({
   handlerIsJoinRoomScreen,
@@ -28,26 +29,35 @@ const JoinRoomScreen = ({
 }) => {
   const dispatch = useDispatch();
   const isRoomHost = useSelector((state) => state.isRoomHost);
-  const connectOnlyWithAudio = useSelector(
-    (state) => state.connectOnlyWithAudio
-  );
+  const onlyAudio = useSelector((state) => state.connectOnlyWithAudio);
   const connectOnlyRoom = useSelector((state) => state.connectOnlyRoom);
+
+  useEffect(() => {
+    webRTCHandler.getLocalStream(onlyAudio);
+  }, [onlyAudio]);
 
   const [name, setName] = useState("");
   const [roomId, setRoomID] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isContinue, setIsContinue] = useState(false);
-  const [isHandleJoinRoom, setIsHandleJoinRoom] = useState(false);
+  const [isOnlyRoom, setIsOnlyRoom] = useState(false);
 
   const randomName = uniqueNamesGenerator({
     dictionaries: [adjectives, animals],
   });
 
   const handleAudioOnly = () => {
-    dispatch(setConnectOnlyWithAudio(!connectOnlyWithAudio));
+    dispatch(setConnectOnlyWithAudio(!onlyAudio));
   };
   const handleOnlyRoom = () => {
+    dispatch(setConnectOnlyWithAudio(true));
     dispatch(setConnectOnlyRoom(!connectOnlyRoom));
+
+    if (!connectOnlyRoom) {
+      setIsOnlyRoom(true);
+    } else {
+      setIsOnlyRoom(false);
+    }
   };
 
   const handleJoinRoom = () => {
@@ -69,8 +79,10 @@ const JoinRoomScreen = ({
 
     if (isRoomHost) {
       createRoom();
+      // webRTCHandler.removeVideoContainer();
     } else {
       joinRoom();
+      // webRTCHandler.removeVideoContainer();
     }
   };
 
@@ -146,7 +158,6 @@ const JoinRoomScreen = ({
   };
 
   const createRoom = () => {
-    console.log("Room created");
     handlerIsJoinRoomScreen();
     if (connectOnlyRoom) {
       handleIsOnlyRoomScreen();
@@ -183,6 +194,7 @@ const JoinRoomScreen = ({
                 className="join-image"
                 src={joinScreenVideo}
               />
+              <div id="videos_container"></div>
             </div>
             <div className="contentPanelConatiner">
               <div className="contentPanel">
@@ -208,15 +220,20 @@ const JoinRoomScreen = ({
                   )}
                   {!isContinue && (
                     <div>
-                      <div className="audioOnlyCheck">
-                        <input
-                          type="checkbox"
-                          name="audioOnly"
-                          checked={connectOnlyWithAudio}
-                          onChange={handleAudioOnly}
-                        />
-                        <label htmlFor="audioOnly">join with audio only</label>
-                      </div>
+                      {!isOnlyRoom && (
+                        <div className="audioOnlyCheck">
+                          <input
+                            type="checkbox"
+                            name="audioOnly"
+                            checked={onlyAudio}
+                            onChange={handleAudioOnly}
+                          />
+                          <label htmlFor="audioOnly">
+                            join with audio only
+                          </label>
+                        </div>
+                      )}
+
                       <div className="audioOnlyCheck">
                         <input
                           type="checkbox"

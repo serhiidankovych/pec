@@ -4,17 +4,7 @@ import { useSelector } from "react-redux";
 import { toggleCamera } from "../../utils/webRTCHandler";
 import { PiVideoCameraBold, PiVideoCameraSlashBold } from "react-icons/pi";
 const CameraButton = () => {
-  const connectOnlyWithAudio = useSelector(
-    (state) => state.connectOnlyWithAudio
-  );
-  const [isCameraOff, setIsCameraOff] = useState(connectOnlyWithAudio);
-
-  // useEffect(() => {
-  //   if (connectOnlyWithAudio) {
-  //     toggleCamera(true);
-  //   }
-  // }, []);
-
+  const [isCameraOff, setIsCameraOff] = useState(true);
   const handleCameraBntPress = () => {
     toggleCamera(isCameraOff);
     setIsCameraOff((prev) => !prev);

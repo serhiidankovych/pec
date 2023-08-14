@@ -4,6 +4,7 @@ import "../RoomButtonsPanel/RoomButtonsPanel.css";
 import LocalScreenSharingPreview from "./LocalScreenSharingPreview";
 import { toggleScreenShare } from "../../utils/webRTCHandler";
 import { PiScreencastBold } from "react-icons/pi";
+
 const constraints = {
   audio: false,
   video: true,

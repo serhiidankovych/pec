@@ -7,8 +7,8 @@ function AppCard({ appImage, title, defenition, func }) {
     <motion.div
       className="app-card"
       onClick={func}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.8 }}
+      whileHover={{ boxShadow: "rgb(0, 0, 0) 8px 8px 0px 0px" }}
+      whileTap={{}}
     >
       <img className="app-image" src={appImage} />
       <div className="title-and-defenition">

@@ -82,8 +82,8 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     disconnectHandler(socket, roomId);
   });
-  socket.on("leave", () => {
-    disconnectHandler(socket, roomId);
+  socket.on("room-leave", (data) => {
+    leaveHandler(socket, data);
   });
 
   //Sound panel
@@ -118,6 +118,33 @@ const createNewRoomHandler = (data, socket, roomId) => {
     id: roomId,
     connectedUsers: [newUser],
     roomType: "roomAudioVideo",
+  };
+
+  connectedUsers = [...connectedUsers, newUser];
+  rooms = [...rooms, newRoom];
+  socket.join(roomId);
+  socket.emit("room-update", { connectedUsers: newRoom.connectedUsers });
+};
+const createNewOnlyRoomHandler = (data, socket, roomId) => {
+  console.log("CREATE ONLY ROOM:");
+
+  const { identity } = data;
+  const userId = roomId;
+
+  console.log(`user (${userId}) created a new  only room\n`);
+
+  const newUser = {
+    identity,
+    id: uuidv4(),
+    socketId: socket.id,
+    roomId,
+    userId,
+  };
+
+  const newRoom = {
+    id: roomId,
+    connectedUsers: [newUser],
+    roomType: "roomOnly",
   };
 
   connectedUsers = [...connectedUsers, newUser];
@@ -171,34 +198,6 @@ const joinRoomHandler = (data, socket) => {
   } else {
     socket.emit("room-id", { roomId: "not-available" });
   }
-};
-
-const createNewOnlyRoomHandler = (data, socket, roomId) => {
-  console.log("CREATE ONLY ROOM:");
-
-  const { identity } = data;
-  const userId = roomId;
-
-  console.log(`user (${userId}) created a new  only room\n`);
-
-  const newUser = {
-    identity,
-    id: uuidv4(),
-    socketId: socket.id,
-    roomId,
-    userId,
-  };
-
-  const newRoom = {
-    id: roomId,
-    connectedUsers: [newUser],
-    roomType: "roomOnly",
-  };
-
-  connectedUsers = [...connectedUsers, newUser];
-  rooms = [...rooms, newRoom];
-  socket.join(roomId);
-  socket.emit("room-update", { connectedUsers: newRoom.connectedUsers });
 };
 
 const joinOnlyInRoomHandler = (data, socket) => {
@@ -272,6 +271,35 @@ const disconnectHandler = (socket) => {
       });
     } else {
       rooms = rooms.filter((r) => r.id !== room.id);
+    }
+  }
+};
+
+const leaveHandler = (socket, data) => {
+  const { roomId } = data;
+  const room = rooms.find((room) => room.id === roomId); // Find the room with the specified 'roomId'
+
+  console.log("ROOM LEAVE:");
+
+  if (room) {
+    const copyOfRoom = { ...room }; // Create a shallow copy of the room object
+    copyOfRoom.connectedUsers = copyOfRoom.connectedUsers.filter(
+      (participant) => participant.socketId !== socket.id
+    ); // Filter out the leaving user from the 'connectedUsers' array in the copied room object
+    socket.leave(copyOfRoom.id); // Instruct the leaving socket to leave the room
+    console.log(`somebody leaved room [${copyOfRoom.id}]\n`);
+
+    // Emit an event to all participants in the room that a participant left
+    io.to(copyOfRoom.id).emit("room-participant-left", { socketId: socket.id });
+
+    if (room.connectedUsers.length > 0) {
+      // If there are still connected users in the room, emit an event to update their list
+      io.to(copyOfRoom.id).emit("room-update", {
+        connectedUsers: copyOfRoom.connectedUsers,
+      });
+    } else {
+      // If there are no connected users left in the room, remove the room from the 'rooms' array
+      rooms = rooms.filter((r) => r.id !== copyOfRoom.id);
     }
   }
 };

@@ -6,18 +6,21 @@ import { socket } from ".././socketConfig";
 
 export const connectWithSocketIOServer = () => {
   socket.on("connect", () => {
-    console.log("successfully connected with socket io server " + socket.id);
+    console.log(
+      "SOCKET.IO: A connection was successfully established with the server, your soket.id: " +
+        socket.id
+    );
   });
 
   socket.on("room-id", ({ roomId }) => {
     store.dispatch(setRoomId(roomId));
     store.dispatch(setUserId(roomId));
-    console.log("Set room id " + roomId);
+    console.log("SOCKET.IO: Recived Room ID " + roomId);
   });
 
   socket.on("room-update", ({ connectedUsers }) => {
     store.dispatch(setParticipants(connectedUsers));
-    console.log("Set all participants for current room");
+    console.log("SOCKET.IO: Updated participants");
   });
 
   //WebRTC wss
@@ -38,6 +41,15 @@ export const connectWithSocketIOServer = () => {
   socket.on("user-disconnected", (data) => {
     webRTCHandler.removePeerConnection(data);
   });
+  socket.on("room-participant-left", (data) => {
+    const { socketId } = data;
+    console.log("SOCKET.IO: Participant left room with socket id " + socketId);
+    webRTCHandler.handleParticipantLeftRoom(data);
+  });
+};
+
+export const signalPeerData = (data) => {
+  socket.emit("conn-signal", data);
 };
 
 export const createNewRoom = (identity, onlyAudio) => {
@@ -46,8 +58,17 @@ export const createNewRoom = (identity, onlyAudio) => {
     identity,
     onlyAudio,
   };
-  console.log("Created new room");
+  console.log("SOCKET.IO: Emit create a new room");
   socket.emit("create-new-room", data);
+};
+
+export const createOnlyRoom = (identity) => {
+  // emit an event to server that we would like to create new room
+  const data = {
+    identity,
+  };
+  console.log("SOCKET.IO: Emit create a new room only");
+  socket.emit("create-new-only-room", data);
 };
 
 export const joinRoom = (identity, roomId, userId, onlyAudio) => {
@@ -58,31 +79,25 @@ export const joinRoom = (identity, roomId, userId, onlyAudio) => {
     userId,
     onlyAudio,
   };
-  console.log("Joined to the room");
+  console.log("SOCKET.IO: Joined a new room");
   socket.emit("join-room", data);
 };
 
-export const signalPeerData = (data) => {
-  socket.emit("conn-signal", data);
-};
-
-export const createOnlyRoom = (identity) => {
-  // emit an event to server that we would like to create new room
-  const data = {
-    identity,
-  };
-  console.log("Created new room only");
-  socket.emit("create-new-only-room", data);
-};
 export const joinOnlyRoom = (identity, roomId, userId) => {
   const data = {
     roomId,
     identity,
     userId,
   };
+  console.log("SOCKET.IO: Joined a new room only");
   socket.emit("join-only-room", data);
-  console.log("Joined only room");
 };
+
 export const newRoomId = () => {
   socket.emit("new-room-id");
+};
+
+export const leaveRoom = (data) => {
+  socket.emit("room-leave", data);
+  console.log("SOCKET.IO: Emit leave room ");
 };

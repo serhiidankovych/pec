@@ -9,6 +9,7 @@ function ButtonBox({
   disabled,
   title,
   showToast,
+  isSidebarOpen,
 }) {
   const [isHovered, setHovered] = React.useState(false);
 
@@ -41,7 +42,7 @@ function ButtonBox({
       <div className="button-box" style={{ backgroundColor: color }}>
         {isHovered ? focusButton : defaultButton}
       </div>
-      <div>{title}</div>
+      {isSidebarOpen && <div>{title}</div>}
     </motion.div>
   );
 }
