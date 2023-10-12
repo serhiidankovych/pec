@@ -6,9 +6,8 @@ let localStream;
 export const getLocalStream = async (onlyAudio) => {
   try {
     // Stop the existing tracks in localStream
-    if (localStream) {
-      removeVideoContainer();
-    }
+
+    removeVideoContainer();
 
     const constraints = {
       audio: true,
@@ -129,22 +128,19 @@ export const removePeerConnection = (data) => {
     delete peers[socketId];
   }
 };
+
 export const removeVideoContainer = () => {
-  const videoContainer = document.querySelectorAll(`.video_track_container`);
-  const videoEl = document.getElementById(`my-video`);
-  console.log("removeVideoContainer");
+  try {
+    const videoContainer = document.querySelectorAll(`.video_track_container`);
+    const videoElement = document.getElementById(`my-video`);
+    const tracks = videoElement?.srcObject?.getTracks() || [];
 
-  if (videoEl) {
-    const tracks = videoEl.srcObject.getTracks();
-
-    console.log(tracks);
     tracks.forEach((t) => t.stop());
     videoContainer.forEach((t) => t.remove());
-    // videoEl.remove();
-    // videoContainer.remove();
-    console.log(videoContainer);
 
-    console.log("removeVideoContainer works");
+    console.log("WEBRTC: tracks stopped and video element removed.");
+  } catch (error) {
+    console.error("WEBRTC: error while removing video container:", error);
   }
 };
 

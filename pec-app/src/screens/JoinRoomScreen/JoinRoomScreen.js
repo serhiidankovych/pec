@@ -32,15 +32,16 @@ const JoinRoomScreen = ({
   const onlyAudio = useSelector((state) => state.connectOnlyWithAudio);
   const connectOnlyRoom = useSelector((state) => state.connectOnlyRoom);
 
-  useEffect(() => {
-    webRTCHandler.getLocalStream(onlyAudio);
-  }, [onlyAudio]);
-
   const [name, setName] = useState("");
   const [roomId, setRoomID] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [isContinue, setIsContinue] = useState(false);
+  const [isClosed, setIsClosed] = useState(false);
   const [isOnlyRoom, setIsOnlyRoom] = useState(false);
+
+  useEffect(() => {
+    webRTCHandler.getLocalStream(onlyAudio);
+  }, [onlyAudio]);
 
   const randomName = uniqueNamesGenerator({
     dictionaries: [adjectives, animals],
@@ -79,16 +80,14 @@ const JoinRoomScreen = ({
 
     if (isRoomHost) {
       createRoom();
-      // webRTCHandler.removeVideoContainer();
     } else {
       joinRoom();
-      // webRTCHandler.removeVideoContainer();
     }
   };
 
   const handleContinueJoin = () => {
     dispatch(setRoomId(roomId));
-    handlerIsJoinRoomScreen();
+    // handlerIsJoinRoomScreen();
 
     if (!connectOnlyRoom) {
       handleIsOnlyRoomScreen();
@@ -118,6 +117,7 @@ const JoinRoomScreen = ({
         (roomType === "roomOnly" && !connectOnlyRoom) ||
         (roomType === "roomAudioVideo" && connectOnlyRoom)
       ) {
+        if (!connectOnlyRoom) dispatch(setConnectOnlyWithAudio(!onlyAudio));
         showToast(
           "⚠️",
           `Host created room ${
@@ -125,9 +125,11 @@ const JoinRoomScreen = ({
           } video and audio`
         );
         setErrorMsg(
-          `⚠️ Host created room ${connectOnlyRoom ? "with" : "without"} video`
+          `⚠️ Host created room ${
+            connectOnlyRoom ? "with" : "without"
+          } video and audio`
         );
-        setIsContinue(true);
+        // setIsContinue(true);
       } else {
         if (roomExists) {
           if (full) {
@@ -139,6 +141,7 @@ const JoinRoomScreen = ({
 
             if (connectOnlyRoom) {
               handleIsOnlyRoomScreen();
+              webRTCHandler.removeVideoContainer();
             } else {
               handlerIsRoomScreen();
             }
@@ -168,6 +171,7 @@ const JoinRoomScreen = ({
   };
 
   const handleCloseHostOrCreateRoom = () => {
+    webRTCHandler.removeVideoContainer();
     dispatch(setIsRoomHost(false));
     handlerIsJoinRoomScreen();
   };
