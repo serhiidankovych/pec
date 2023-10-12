@@ -4,6 +4,13 @@
 
 Hey,  PEC is an open-source project aimed at providing a free and interactive platform to learn English in an engaging and collaborative manner. This project encourages co-learning, where users can have fun together, share knowledge, and help each other improve their English language skills.
 
+## Lending:
+![Lending](https://github.com/serhiidankovych/pec/blob/main/pec-app/src/assets/lending.png)  
+## Dashboard:
+![Dashboard](https://github.com/serhiidankovych/pec/blob/main/pec-app/src/assets/apps.png)
+## Whiteboard:
+![Whiteboard](https://github.com/serhiidankovych/pec/blob/main/pec-app/src/assets/whiteboard.png)
+
 ## Key Features:
 
  - Fun-Oriented Learning
